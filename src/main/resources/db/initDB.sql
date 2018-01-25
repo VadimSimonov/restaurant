@@ -5,16 +5,17 @@ DROP TABLE IF EXISTS voite;
 DROP TABLE IF EXISTS restaurants;
 DROP SEQUENCE IF EXISTS global_seq;
 
-CREATE SEQUENCE global_seq START 100000;
+CREATE SEQUENCE global_seq START 10000;
 
 CREATE TABLE restaurants
 (
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name    VARCHAR
+  name    VARCHAR                      NOT NULL
 );
 
 CREATE TABLE meals (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  meal           VARCHAR                       NOT NULL,
   restauran_id     INTEGER                       NOT NULL,
   date_time         TIMESTAMP DEFAULT now()       NOT NULL,
   price             INTEGER                       NOT NULL,

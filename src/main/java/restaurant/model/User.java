@@ -1,14 +1,57 @@
 package restaurant.model;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Column(name="id", nullable = false, unique = true)
     private Integer id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Role roles;
+
+    public User() {
+
+    }
+
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Role roles) {
+        this.id = id;
+        this.name = name;
+       // this.registered = registered;
+        this.password = password;
+        this.enabled = enabled;
+        this.email = email;
+        this.roles = roles;
+    }
+
+    public User(Integer id, String name, String email, String password, Role roles) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
+
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -59,18 +102,29 @@ public class User {
         return email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", registered=" + registered +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", email='" + email + '\'' +
-                '}';
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
+    public Role getRoles() {
+
+        return roles;
     }
 
     public boolean isNew() {
         return this.id == null;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", registered=" + registered +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -7,7 +7,11 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    public static final int START_SEQ = 100000;
+    @Id
     @Column(name="id", nullable = false, unique = true)
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
     @Column(name = "name", nullable = false)
     private String name;
@@ -23,11 +27,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
+   // @ElementCollection(fetch = FetchType.EAGER)
     private Role roles;
 
     public User() {
-
     }
 
 

@@ -1,10 +1,12 @@
 package restaurant.service;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.junit4.SpringRunner;
 import restaurant.model.Role;
 import restaurant.model.User;
 
@@ -15,16 +17,15 @@ import static restaurant.UserTestData.*;
 @ContextConfiguration({
         "classpath:spring/spring-config.xml"
 })
-
+@RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceImplTest {
 
     @Autowired
     private UserService service;
-
     @Test
     public void create() throws Exception {
-        User newUser = new User(NEWUSER_ID,"New","new@mail.ru","passNew",Role.ROLE_USER);
+        User newUser = new User(null,"New","new@mail.ru","passNew",Role.ROLE_USER);
         User created = service.create(newUser);
         newUser.setId(created.getId());
         assertMatch(service.getAll(), ADMIN, newUser, USER);

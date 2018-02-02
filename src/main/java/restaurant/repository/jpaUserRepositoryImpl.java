@@ -2,6 +2,7 @@ package restaurant.repository;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import restaurant.model.User;
 
@@ -28,8 +29,8 @@ public class jpaUserRepositoryImpl implements UserRepository {
 
     @Transactional
     public boolean delete(int id) {
-        String hql ="DELETE FROM User u WHERE u.id=:id";
-        return em.createNamedQuery(hql)
+       // String hql ="DELETE FROM User u WHERE u.id=:id";
+        return em.createNamedQuery(User.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -39,15 +40,15 @@ public class jpaUserRepositoryImpl implements UserRepository {
     }
 
     public User getByEmail(String email) {
-        String hql = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1";
-        List<User> users = em.createNamedQuery(hql, User.class)
+      //  String hql = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1";
+        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class)
                 .setParameter(1, email)
                 .getResultList();
         return DataAccessUtils.singleResult(users);
     }
 
     public List<User> getAll() {
-        String hql ="SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email";
-        return em.createNamedQuery(hql, User.class).getResultList();
+      //  String hql ="SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email";
+        return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
     }
 }

@@ -1,4 +1,4 @@
-package restaurant.web.user;
+package restaurant.controllers.user;
 
 import org.springframework.stereotype.Controller;
 import restaurant.model.User;

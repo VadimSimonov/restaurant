@@ -1,4 +1,4 @@
-package restaurant.web.user;
+package restaurant.controllers.user;
 
 import restaurant.model.User;
 

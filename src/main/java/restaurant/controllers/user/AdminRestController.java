@@ -1,14 +1,19 @@
-package restaurant.web.user;
+package restaurant.controllers.user;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import restaurant.model.User;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/admin")
 public class AdminRestController extends AbstractUserController {
 
     @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         return super.getAll();
     }

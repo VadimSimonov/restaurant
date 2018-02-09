@@ -1,6 +1,7 @@
 package restaurant.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
@@ -63,6 +64,10 @@ public class User {
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
     }
+    public User(String name, String password, String email,Role role) {
+        this(null, name, email,password,role );
+    }
+
 
     public void setId(Integer id) {
         this.id = id;

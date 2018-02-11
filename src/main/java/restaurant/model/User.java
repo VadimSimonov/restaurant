@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
+
+import static restaurant.model.Role.ROLE_USER;
+
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),

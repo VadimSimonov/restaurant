@@ -1,3 +1,5 @@
+var form;
+
 function makeEditable() {
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -38,8 +40,19 @@ function updateTable() {
     });
 }
 
+function editRow(id) {
+   // $("#modalTitle").html(i18n["editTitle"]);
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+             form.find("input[name='" + key + "']").val(frm(key, value));
+          //  $("#modalTitle").find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
+    });
+}
+
 function save() {
-    var form = $("#detailsForm");
+    form = $("#detailsForm");
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -51,6 +64,7 @@ function save() {
         }
     });
 }
+
 
 var failedNote;
 

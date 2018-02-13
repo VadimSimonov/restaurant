@@ -42,6 +42,18 @@ function updateTable() {
 
 function editRow(id) {
    // $("#modalTitle").html(i18n["editTitle"]);
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + id
+    }).done(function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(key, value);
+
+        });
+        $('#editRow').modal();
+    });
+
+    /*
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
              form.find("input[name='" + key + "']").val(frm(key, value));
@@ -49,6 +61,7 @@ function editRow(id) {
         });
         $('#editRow').modal();
     });
+    */
 }
 
 function save() {

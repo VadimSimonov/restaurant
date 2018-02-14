@@ -1,11 +1,14 @@
 var form;
+var form2;
 
 function makeEditable() {
+    form =$('#detailsForm');
+
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
     });
 
-    $("#detailsForm").submit(function () {
+    form.submit(function () {
         save();
         return false;
     });
@@ -46,10 +49,10 @@ function editRow(id) {
         type: "GET",
         url: ajaxUrl + id
     }).done(function (data) {
-        $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(key, value);
-
-        });
+            $('#id').val(data.id);
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+            $('#password').val(data.password);
         $('#editRow').modal();
     });
 

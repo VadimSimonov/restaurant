@@ -28,6 +28,7 @@ CREATE TABLE users
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
+  roles            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL

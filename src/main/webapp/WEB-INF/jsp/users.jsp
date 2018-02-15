@@ -74,6 +74,20 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="roles" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
+
+                        <!-- div class="col-xs-9"> -->
+                            <select id="roles">
+                                <option value="None">-- Select --</option>
+                                <option value="ROLE_ADMIN">ADMIN</option>
+                                <option value="ROLE_USER">USER</option>
+                            </select>
+                        <!--
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="form-group">
                         <label for="password" class="control-label col-xs-3"><spring:message code="user.password"/></label>
 
                         <div class="col-xs-9">

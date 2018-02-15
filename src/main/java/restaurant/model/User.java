@@ -6,12 +6,11 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static restaurant.model.Role.ROLE_USER;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u  ORDER BY u.name, u.email"),
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
@@ -37,17 +36,13 @@ public class User {
     private boolean enabled = true;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @Column(name = "roles", nullable = false)
+    private String  roles;
 
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, String roles) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -56,19 +51,19 @@ public class User {
         this.roles = roles;
     }
 
-    public User(Integer id, String name, String email, String password,  Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password,  String roles) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
-        this.roles = EnumSet.of(role,roles);
+        this.roles = roles;
     }
 
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
     }
-    public User(String name, String password, String email,Role role) {
-        this(null, name, email,password,role );
+    public User(String name, String password, String email,String  roles) {
+        this(null, name, email,password,roles );
     }
 
 
@@ -109,7 +104,7 @@ public class User {
     public String getEmail() {
         return email;
     }
-    public Set<Role> getRoles() {
+    public String getRoles() {
 
         return roles;
     }

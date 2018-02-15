@@ -1,5 +1,4 @@
 var form;
-var form2;
 
 function makeEditable() {
     form =$('#detailsForm');
@@ -67,12 +66,20 @@ function editRow(id) {
     */
 }
 
+
 function save() {
     form = $("#detailsForm");
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: form.serialize(),
+        //data: form.serialize(),
+        data : {
+            id : $('#id').val(),
+            name : $('#name').val(),
+            email : $('#email').val(),
+            roles : $('#roles').val(),
+            password : $('#password').val()
+        },
         success: function () {
             $("#editRow").modal("hide");
             updateTable();
@@ -80,6 +87,30 @@ function save() {
         }
     });
 }
+
+
+
+/*
+function save() {
+    var data = {}
+    data["id"]=$("#id").val();
+    data["name"]=$("#name").val();
+    data["password"]=$("#password").val();
+    data["email"]=$("#email").val();
+    data["roles"]=$("#roles").val();
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: JSON.stringify(data),
+        success: function () {
+            $("#editRow").modal("hide");
+            updateTable();
+            successNoty("Saved");
+        }
+    });
+}
+*/
+
 
 
 var failedNote;

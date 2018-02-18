@@ -108,6 +108,10 @@ public class User {
 
         return roles;
     }
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     public boolean isNew() {
         return this.id == null;
     }

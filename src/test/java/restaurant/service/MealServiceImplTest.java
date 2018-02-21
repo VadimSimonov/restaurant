@@ -7,9 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import restaurant.model.User;
+import restaurant.model.Meals;
 import java.util.List;
-import static restaurant.UserTestData.*;
+import static restaurant.MealTestData.*;
 
 
 @ContextConfiguration({
@@ -17,50 +17,36 @@ import static restaurant.UserTestData.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class UserServiceImplTest {
-
+public class MealServiceImplTest {
     @Autowired
-    private UserService service;
+    private MealService service;
+
     @Test
     public void create() throws Exception {
-        User newUser = new User(null,"New","new@mail.ru","passNew","ROLE_USER");
-        User created = service.create(newUser);
-        newUser.setId(created.getId());
-        assertMatch(service.getAll(), ADMIN, newUser, USER);
     }
-
 
     @Test
     public void delete() throws Exception {
-        service.delete(USER_ID);
-        assertMatch(service.getAll(), ADMIN);
     }
 
     @Test
     public void get() throws Exception {
-        User user = service.get(USER_ID);
-        assertMatch(user, USER);
-    }
-
-    @Test
-    public void getByEmail() throws Exception {
-        User user = service.getByEmail("user@yandex.ru");
-        assertMatch(user, USER);
     }
 
     @Test
     public void update() throws Exception {
-        User updated = new User(USER);
-        updated.setName("UpdatedName");
-        service.update(updated);
-        assertMatch(service.get(USER_ID), updated);
     }
 
     @Test
     public void getAll() throws Exception {
-        List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        List<Meals> all = service.getAll();
+        assertMatch(all,newMeals,meals);
     }
 
+    @Test
+    public void getAllByRestaurantId()throws Exception {
+        List<Meals> all = service.getAllByRestaurantId(Restaurant_ID);
+        assertMatch(all,meals);
+    }
 
 }

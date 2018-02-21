@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS meals;
 DROP TABLE IF EXISTS voite;
 DROP TABLE IF EXISTS restaurants;
@@ -43,13 +44,20 @@ CREATE TABLE user_roles
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
+CREATE TABLE menu
+(
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  restauran_id     INTEGER                 NOT NULL,
+  meal_id          INTEGER                 NOT NULL,
+  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE,
+  FOREIGN KEY (meal_id ) REFERENCES meals (id) ON DELETE CASCADE
+);
+
 CREATE TABLE voite (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  user_id           INTEGER                 NOT NULL,
   restauran_id     INTEGER                 NOT NULL,
   date_time         TIMESTAMP DEFAULT now() NOT NULL,
-  value             INTEGER                 NOT NULL,
-  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id)  ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+  voite             INTEGER                 NOT NULL,
+  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id)  ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX meals_unique_user_restauran_idx ON voite (restauran_id, user_id);
+CREATE UNIQUE INDEX voite_unique_restauran_idx ON voite (restauran_id);

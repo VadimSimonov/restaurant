@@ -115,6 +115,7 @@ public class User {
     public boolean isNew() {
         return this.id == null;
     }
+
     @Override
     public String toString() {
         return "User{" +

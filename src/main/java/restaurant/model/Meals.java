@@ -58,7 +58,14 @@ public class Meals {
         this.meal = meal;
         this.dateTime = dateTime;
         this.price = price;
-        Restaurants = restaurants;
+        this.Restaurants = restaurants;
+    }
+    public Meals(int id,String meal, Restaurants restaurants, LocalDateTime dateTime, int price) {
+        this.id=id;
+        this.meal = meal;
+        this.dateTime = dateTime;
+        this.price = price;
+        this.Restaurants = restaurants;
     }
 
     public Integer getId() {
@@ -89,7 +96,7 @@ public class Meals {
         return Restaurants;
     }
     public void setRestaurants(Restaurants restaurants) {
-        Restaurants = restaurants;
+        this.Restaurants = restaurants;
     }
 
     @Override

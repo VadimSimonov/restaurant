@@ -1,5 +1,6 @@
 package restaurant.service;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import restaurant.model.Meals;
 import java.util.List;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static restaurant.MealTestData.*;
 
 
@@ -40,13 +42,14 @@ public class MealServiceImplTest {
     @Test
     public void getAll() throws Exception {
         List<Meals> all = service.getAll();
-        assertMatch(all,newMeals,meals);
+        assertMatch(all,MEALS);
+
     }
 
     @Test
     public void getAllByRestaurantId()throws Exception {
         List<Meals> all = service.getAllByRestaurantId(Restaurant_ID);
-        assertMatch(all,meals);
+        assertMatch(all,MEALS);
     }
 
 }

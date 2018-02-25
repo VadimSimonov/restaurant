@@ -1,17 +1,14 @@
 package restaurant;
 
-import org.springframework.test.web.servlet.ResultMatcher;
 import restaurant.model.Meals;
 import restaurant.model.Restaurants;
-import restaurant.model.User;
 
 import java.time.Month;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
 
 import static java.time.LocalDateTime.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static restaurant.model.User.START_SEQ;
 
 
@@ -27,8 +24,14 @@ public class MealTestData {
             of(2018, Month.MAY, 29, 13, 0),700);
     public static final List<Meals> MEALS = Arrays.asList(MEAL2, MEAL1);
 
+    public static final Meals CreateMEAL = new Meals("newObed",
+            of(2018, Month.MAY, 29, 13, 0),777);
+
+    public static final Meals UpdateMEAL = new Meals(Meals_ID,"UpdateObed",
+            MEAL1.getDateTime(),777);
+
     public static void assertMatch(Meals actual, Meals expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "meal", "price");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "Restaurants");
     }
 
     public static void assertMatch(Iterable<Meals> actual, Meals... expected) {

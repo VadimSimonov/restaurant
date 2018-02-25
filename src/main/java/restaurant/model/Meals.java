@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @NamedQueries({
-        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id"),
+        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.Restaurants.id=:restaurantId"),
         @NamedQuery(name = Meals.ALL_SORTED, query = "SELECT m FROM Meals m ORDER BY m.meal, m.dateTime"),
         @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.Restaurants.id=:restaurantid ORDER BY m.meal, m.dateTime"),
 })
@@ -34,7 +34,7 @@ public class Meals {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -54,6 +54,12 @@ public class Meals {
         this.price = price;
     }
 
+    public Meals(String meal, LocalDateTime dateTime, int price) {
+        this.meal = meal;
+        this.dateTime = dateTime;
+        this.price = price;
+    }
+
     public Meals(String meal, Restaurants restaurants, LocalDateTime dateTime, int price) {
         this.meal = meal;
         this.dateTime = dateTime;
@@ -66,6 +72,12 @@ public class Meals {
         this.dateTime = dateTime;
         this.price = price;
         this.Restaurants = restaurants;
+    }
+    public Meals(int id,String meal, LocalDateTime dateTime, int price) {
+        this.id=id;
+        this.meal = meal;
+        this.dateTime = dateTime;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -106,7 +118,6 @@ public class Meals {
                 ", meal='" + meal + '\'' +
                 ", dateTime=" + dateTime +
                 ", price=" + price +
-                ", Restaurants=" + Restaurants +
                 '}';
     }
 

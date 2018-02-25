@@ -25,18 +25,26 @@ public class MealServiceImplTest {
 
     @Test
     public void create() throws Exception {
+        service.create(CreateMEAL,Restaurant_ID);
+        assertMatch(service.getAll(),CreateMEAL,MEAL2,MEAL1);
     }
 
     @Test
     public void delete() throws Exception {
+        service.delete(newMeals_ID,newRestaurant_ID);
+        assertMatch(service.getAll(),MEAL1);
     }
 
     @Test
     public void get() throws Exception {
+        Meals meal = service.get(Meals_ID, Restaurant_ID);
+        assertMatch(meal,MEAL1);
     }
 
     @Test
     public void update() throws Exception {
+        Meals meal = service.update(UpdateMEAL, Restaurant_ID);
+        assertMatch(service.get(Meals_ID,Restaurant_ID),meal);
     }
 
     @Test
@@ -49,7 +57,7 @@ public class MealServiceImplTest {
     @Test
     public void getAllByRestaurantId()throws Exception {
         List<Meals> all = service.getAllByRestaurantId(Restaurant_ID);
-        assertMatch(all,MEALS);
+        assertMatch(all,MEAL1);
     }
 
 }

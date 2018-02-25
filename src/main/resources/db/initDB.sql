@@ -22,7 +22,7 @@ CREATE TABLE meals (
   price             INTEGER                       NOT NULL,
   FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX meals_unique_restaurant_idx ON meals (restauran_id);
+/*CREATE UNIQUE INDEX meals_unique_restaurant_idx ON meals (restauran_id); */
 
 CREATE TABLE users
 (

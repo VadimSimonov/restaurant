@@ -19,7 +19,7 @@ import static restaurant.MealTestData.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class MealServiceImplTest {
+public class MealServiceImplTest implements AbstractServiceTest {
     @Autowired
     private MealService service;
 

@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83356eac-dc5a-4c6a-bec9-b3e66c3e670b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/restaurant/repository/RestaurantRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/restaurant/repository/jpaRestaurantRepositoryImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/restaurant/service/RestaurantService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/restaurant/service/RestaurantServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/restaurant/util/UtilId.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/restaurant.iml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/restaurant/service/AbstractServiceTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/restaurant/model/Meals.java" afterPath="$PROJECT_DIR$/src/main/java/restaurant/model/Meals.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/restaurant/model/Menu.java" afterPath="$PROJECT_DIR$/src/main/java/restaurant/model/Menu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/restaurant/model/Restaurants.java" afterPath="$PROJECT_DIR$/src/main/java/restaurant/model/Restaurants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/restaurant/model/User.java" afterPath="$PROJECT_DIR$/src/main/java/restaurant/model/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/restaurant/model/Voite.java" afterPath="$PROJECT_DIR$/src/main/java/restaurant/model/Voite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/initDB.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/initDB.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/populateDB.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/populateDB.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/restaurant/MealTestData.java" afterPath="$PROJECT_DIR$/src/test/java/restaurant/MealTestData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java" afterPath="$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java" afterPath="$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java" afterPath="$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored mask=".iml" />
@@ -81,8 +70,8 @@
       <file leaf-file-name="UserServiceImplTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+            <state relative-caret-position="221">
+              <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -130,25 +119,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Restaurants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/restaurant/model/Restaurants.java">
+      <file leaf-file-name="RestaurantServiceImplTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="53" column="37" lean-forward="false" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+            <state relative-caret-position="289">
+              <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1738#1739#0" expanded="true" />
-                <element signature="e#1781#1782#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RestaurantServiceImplTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java">
+      <file leaf-file-name="MealServiceImplTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="52" column="78" lean-forward="true" selection-start-line="52" selection-start-column="78" selection-end-line="52" selection-end-column="78" />
+            <state relative-caret-position="168">
+              <caret line="21" column="65" lean-forward="true" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractServiceTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/AbstractServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,15 +165,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="restaurants" pinned="false" current-in-tab="false">
-        <entry file="das://table:/9c8064d/0f93a50d-964a-42d6-8e08-97d9dd24b50f/restaurant.public.restaurants">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -184,6 +172,7 @@
       <list>
         <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -211,8 +200,11 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/populateDB.sql" />
         <option value="$PROJECT_DIR$/src/main/java/restaurant/model/Restaurants.java" />
         <option value="$PROJECT_DIR$/src/main/java/restaurant/model/User.java" />
-        <option value="$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/restaurant/MealTestData.java" />
+        <option value="$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/restaurant/service/AbstractServiceTest.java" />
       </list>
     </option>
   </component>
@@ -463,7 +455,61 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RestaurantServiceImplTest">
+  <component name="RunManager" selected="JUnit.MealServiceImplTest and 2 more">
+    <configuration name="MealServiceImplTest and 2 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="restaurant.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="restaurant" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="restaurant.service" />
+      <option name="MAIN_CLASS_NAME" value="restaurant.service.AbstractServiceTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="pattern" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns>
+        <pattern testClass="restaurant.service.MealServiceImplTest" />
+        <pattern testClass="restaurant.service.RestaurantServiceImplTest" />
+        <pattern testClass="restaurant.service.UserServiceImplTest" />
+      </patterns>
+    </configuration>
+    <configuration name="MealServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="restaurant.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="restaurant" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="restaurant.service" />
+      <option name="MAIN_CLASS_NAME" value="restaurant.service.MealServiceImplTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
     <configuration name="RestaurantServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -478,56 +524,6 @@
       <option name="MAIN_CLASS_NAME" value="restaurant.service.RestaurantServiceImplTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="RestaurantServiceImplTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="restaurant.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="restaurant" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="restaurant.service" />
-      <option name="MAIN_CLASS_NAME" value="restaurant.service.RestaurantServiceImplTest" />
-      <option name="METHOD_NAME" value="create" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="RestaurantServiceImplTest.update" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="restaurant.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="restaurant" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="restaurant.service" />
-      <option name="MAIN_CLASS_NAME" value="restaurant.service.RestaurantServiceImplTest" />
-      <option name="METHOD_NAME" value="update" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -670,19 +666,19 @@
       <listeners />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest.create" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest.update" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest.update" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest.update" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.MealServiceImplTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.MealServiceImplTest and 2 more" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest.update" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest.update" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.MealServiceImplTest and 2 more" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MealServiceImplTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.UserServiceImplTest" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest.create" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.RestaurantServiceImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -701,12 +697,29 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1519630314292</updated>
-      <workItem from="1519630318566" duration="19448000" />
+      <workItem from="1519630318566" duration="19715000" />
     </task>
+    <task id="LOCAL-00001" summary="Restaurant model crud complete">
+      <created>1519653731343</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1519653731343</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="MealServiceImplTest - 2018.02.26 at 17h 05m 39s.xml">
+      <configuration name="MealServiceImplTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealServiceImplTest_and_2_more - 2018.02.26 at 17h 06m 15s.xml">
+      <configuration name="MealServiceImplTest and 2 more" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="RestaurantServiceImplTest - 2018.02.26 at 17h 01m 42s.xml">
+      <configuration name="RestaurantServiceImplTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RestaurantServiceImplTest - 2018.02.26 at 17h 05m 29s.xml">
       <configuration name="RestaurantServiceImplTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="RestaurantServiceImplTest_update - 2018.02.26 at 16h 59m 00s.xml">
@@ -724,25 +737,15 @@
     <history-entry file="RestaurantServiceImplTest_update - 2018.02.26 at 17h 01m 33s.xml">
       <configuration name="RestaurantServiceImplTest.update" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserServiceImplTest - 2018.02.26 at 16h 56m 50s.xml">
+    <history-entry file="UserServiceImplTest - 2018.02.26 at 17h 05m 21s.xml">
       <configuration name="UserServiceImplTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceImplTest - 2018.02.26 at 16h 57m 43s.xml">
-      <configuration name="UserServiceImplTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceImplTest_update - 2018.02.26 at 16h 56m 35s.xml">
-      <configuration name="UserServiceImplTest.update" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceImplTest_update - 2018.02.26 at 16h 57m 51s.xml">
-      <configuration name="UserServiceImplTest.update" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19448000" />
+    <option name="totallyTimeSpent" value="19715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-3" width="1920" height="1087" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -820,6 +823,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Restaurant model crud complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restaurant model crud complete" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="12" />
@@ -840,10 +847,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1519653698039" expanded="true" signature="40215:40257" ph="..." />
-            <marker date="1519653698039" expanded="true" signature="40215:40275" ph="..." />
-            <marker date="1519653698039" expanded="true" signature="40215:40288" ph="..." />
-            <marker date="1519653698039" expanded="true" signature="40215:40303" ph="..." />
+            <marker date="1519653970628" expanded="true" signature="40215:40257" ph="..." />
+            <marker date="1519653970628" expanded="true" signature="40215:40275" ph="..." />
+            <marker date="1519653970628" expanded="true" signature="40215:40288" ph="..." />
+            <marker date="1519653970628" expanded="true" signature="40215:40303" ph="..." />
           </folding>
         </state>
       </provider>
@@ -940,16 +947,6 @@
         <state relative-caret-position="310">
           <caret line="28" column="27" lean-forward="true" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1117,14 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/UserTestData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1156,8 +1145,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/RestaurantServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="52" column="78" lean-forward="true" selection-start-line="52" selection-start-column="78" selection-end-line="52" selection-end-column="78" />
+        <state relative-caret-position="289">
+          <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/UserServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/MealServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="21" column="65" lean-forward="true" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/restaurant/service/AbstractServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

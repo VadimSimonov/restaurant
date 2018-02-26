@@ -10,8 +10,8 @@ INSERT INTO users (name, email,roles, password) VALUES
   ('Admin', 'admin@gmail.com','ROLE_ADMIN', 'admin');
 
 INSERT INTO restaurants (id,name) VALUES
-  (100007,'Restorant1'),
-  (100008,'Restorant2');
+  (100007,'Restaurant1'),
+  (100008,'Restaurant2');
 
 INSERT INTO meals (meal,restauran_id, date_time,price) VALUES
   ('Zavtrak',100007, '2018-05-30 13:00:00',500),

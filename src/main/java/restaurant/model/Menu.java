@@ -2,12 +2,13 @@ package restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Menu {
+public class Menu implements UtilId {
     public static final int START_SEQ = 100000;
 
     @Id

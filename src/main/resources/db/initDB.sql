@@ -13,6 +13,7 @@ CREATE TABLE restaurants
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name    VARCHAR                      NOT NULL
 );
+CREATE UNIQUE INDEX restaurants_unique_name_idx ON restaurants (name);
 
 CREATE TABLE meals (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),

@@ -1,20 +1,27 @@
 package restaurant.model;
 
+import restaurant.util.UtilId;
+
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = Restaurants.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
+        @NamedQuery(name = Restaurants.ALL_SORTED, query = "SELECT r FROM Restaurants r  ORDER BY r.name"),
+})
 @Entity
 @Table(name = "restaurants")
-public class Restaurants {
+public class Restaurants implements UtilId {
     public static final int START_SEQ = 100000;
 
-    public static final String Restaurant1="Restaurant1";
-    public static final String Restaurant2="Restaurant2";
+    public static final String DELETE = "Restaurants.delete";
+    public static final String ALL_SORTED = "Restaurants.getAllSorted";
+
     @Id
     @Column(name="id", nullable = false, unique = true)
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     public Restaurants() {
@@ -22,6 +29,11 @@ public class Restaurants {
 
     public Restaurants(String name) {
         this.name = name;
+    }
+
+    public Restaurants(Restaurants restaurant) {
+        this.id=restaurant.getId();
+        this.name=restaurant.getName();
     }
 
 
@@ -36,5 +48,28 @@ public class Restaurants {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Restaurants that = (Restaurants) o;
+
+        return getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurants{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

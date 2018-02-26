@@ -1,5 +1,7 @@
 package restaurant.model;
 
+import restaurant.util.UtilId;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,7 +16,7 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User {
+public class User implements UtilId {
     public static final int START_SEQ = 100000;
 
     public static final String DELETE = "User.delete";
@@ -70,6 +72,7 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Integer getId() {
         return id;
     }
@@ -110,10 +113,6 @@ public class User {
     }
     public void setRoles(String roles) {
         this.roles = roles;
-    }
-
-    public boolean isNew() {
-        return this.id == null;
     }
 
     @Override

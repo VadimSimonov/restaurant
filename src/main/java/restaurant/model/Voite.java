@@ -2,6 +2,7 @@ package restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "voite", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "voite_unique_restauran_idx")})
-public class Voite {
+public class Voite implements UtilId {
     public static final int START_SEQ = 100000;
 
     @Id

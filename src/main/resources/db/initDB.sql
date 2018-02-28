@@ -19,7 +19,6 @@ CREATE TABLE meals (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   meal           VARCHAR                       NOT NULL,
   restauran_id     INTEGER                       NOT NULL,
-  date_time         TIMESTAMP DEFAULT now()       NOT NULL,
   price             INTEGER                       NOT NULL,
   FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE
 );
@@ -50,6 +49,7 @@ CREATE TABLE menu
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   restauran_id     INTEGER                 NOT NULL,
   meal_id          INTEGER                 NOT NULL,
+  date_time        TIMESTAMP DEFAULT now() NOT NULL,
   FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE,
   FOREIGN KEY (meal_id ) REFERENCES meals (id) ON DELETE CASCADE
 );

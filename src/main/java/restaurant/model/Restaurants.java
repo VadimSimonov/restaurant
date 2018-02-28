@@ -24,6 +24,7 @@ public class Restaurants implements UtilId {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+
     public Restaurants() {
     }
 
@@ -34,6 +35,10 @@ public class Restaurants implements UtilId {
     public Restaurants(Restaurants restaurant) {
         this.id=restaurant.getId();
         this.name=restaurant.getName();
+    }
+    public Restaurants(int id,String name) {
+        this.id=id;
+        this.name=name;
     }
 
 

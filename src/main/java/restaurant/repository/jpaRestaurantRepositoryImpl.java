@@ -20,6 +20,9 @@ public class jpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     @Transactional
     public Restaurants save(Restaurants restaurants) {
+        if (!restaurants.isNew() && get(restaurants.getId()) == null) {
+            return null;
+        }
         if (restaurants.isNew()) {
             em.persist(restaurants);
             return restaurants;

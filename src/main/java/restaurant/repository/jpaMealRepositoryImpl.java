@@ -58,7 +58,7 @@ public class jpaMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meals> getAllByRestaurantId(int restaurantId) {
         return em.createNamedQuery(Meals.ALL_SORTEDBYID, Meals.class)
-                .setParameter("restaurantid", restaurantId)
+                .setParameter("restaurantId", restaurantId)
                 .getResultList();
     }
 }

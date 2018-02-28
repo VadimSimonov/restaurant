@@ -11,8 +11,8 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.Restaurants.id=:restaurantId"),
-        @NamedQuery(name = Meals.ALL_SORTED, query = "SELECT m FROM Meals m ORDER BY m.meal, m.dateTime"),
-        @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.Restaurants.id=:restaurantid ORDER BY m.meal, m.dateTime"),
+        @NamedQuery(name = Meals.ALL_SORTED, query = "SELECT m FROM Meals m ORDER BY m.meal"),
+        @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.Restaurants.id=:restaurantId ORDER BY m.meal"),
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "meals_unique_restaurant_idx")})
@@ -30,8 +30,8 @@ public class Meals implements UtilId {
     private Integer id;
     @Column(name = "meal", nullable = false)
     private String meal;
-    @Column(name = "date_time", columnDefinition = "timestamp default now()")
-    private LocalDateTime dateTime;
+   // @Column(name = "date_time", columnDefinition = "timestamp default now()")
+   // private LocalDateTime dateTime;
     @Column(name = "price", nullable = false)
     private int price;
 
@@ -55,29 +55,20 @@ public class Meals implements UtilId {
         this.price = price;
     }
 
-    public Meals(String meal, LocalDateTime dateTime, int price) {
+    public Meals(String meal, Restaurants restaurants, int price) {
         this.meal = meal;
-        this.dateTime = dateTime;
-        this.price = price;
-    }
-
-    public Meals(String meal, Restaurants restaurants, LocalDateTime dateTime, int price) {
-        this.meal = meal;
-        this.dateTime = dateTime;
         this.price = price;
         this.Restaurants = restaurants;
     }
-    public Meals(int id,String meal, Restaurants restaurants, LocalDateTime dateTime, int price) {
+    public Meals(int id,String meal, Restaurants restaurants, int price) {
         this.id=id;
         this.meal = meal;
-        this.dateTime = dateTime;
         this.price = price;
         this.Restaurants = restaurants;
     }
-    public Meals(int id,String meal, LocalDateTime dateTime, int price) {
+    public Meals(int id,String meal, int price) {
         this.id=id;
         this.meal = meal;
-        this.dateTime = dateTime;
         this.price = price;
     }
 
@@ -92,12 +83,6 @@ public class Meals implements UtilId {
     }
     public void setMeal(String meal) {
         this.meal = meal;
-    }
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
     public int getPrice() {
         return price;
@@ -117,7 +102,6 @@ public class Meals implements UtilId {
         return "Meals{" +
                 "id=" + id +
                 ", meal='" + meal + '\'' +
-                ", dateTime=" + dateTime +
                 ", price=" + price +
                 '}';
     }

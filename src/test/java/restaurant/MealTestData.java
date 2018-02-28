@@ -28,17 +28,16 @@ public class MealTestData {
     public static final int Restaurant_ID = 100007;
     public static final int newRestaurant_ID = 100008;
 
-    public static final Meals MEAL1 =new Meals(Meals_ID,"Zavtrak",Restaurant1,
-            of(2018, Month.MAY, 30, 13, 0),500);
-    public static final Meals MEAL2 = new Meals(newMeals_ID,"Obed", Restaurant2,
-            of(2018, Month.MAY, 29, 13, 0),700);
+    public static final Meals MEAL1 =new Meals(Meals_ID,"Zavtrak",Restaurant1,500);
+          //  of(2018, Month.MAY, 30, 13, 0),500);
+    public static final Meals MEAL2 = new Meals(newMeals_ID,"Obed", Restaurant2,700);
+          //  of(2018, Month.MAY, 29, 13, 0),700);
     public static final List<Meals> MEALS = Arrays.asList(MEAL2, MEAL1);
 
-    public static final Meals CreateMEAL = new Meals("newObed",
-            of(2018, Month.MAY, 29, 13, 0),777);
+    public static final Meals CreateMEAL = new Meals("newObed",777);
+          //  of(2018, Month.MAY, 29, 13, 0),777);
 
-    public static final Meals UpdateMEAL = new Meals(Meals_ID,"UpdateObed",
-            MEAL1.getDateTime(),777);
+    public static final Meals UpdateMEAL = new Meals(Meals_ID,"UpdateObed",777);
 
 
     public static final Restaurants UpdateRestaurants = new Restaurants("UpdatedName");

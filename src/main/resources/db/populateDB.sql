@@ -3,6 +3,7 @@ DELETE FROM meals;
 DELETE FROM users;
 DELETE FROM restaurants;
 DELETE FROM voite;
+DELETE FROM menu;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email,roles, password) VALUES
@@ -10,13 +11,17 @@ INSERT INTO users (name, email,roles, password) VALUES
   ('Admin', 'admin@gmail.com','ROLE_ADMIN', 'admin');
 
 INSERT INTO restaurants (id,name) VALUES
-  (100007,'Restaurant1'),
-  (100008,'Restaurant2');
+  (100017,'Restaurant1'),
+  (100018,'Restaurant2');
 
-INSERT INTO meals (meal,restauran_id, date_time,price) VALUES
-  ('Zavtrak',100007, '2018-05-30 13:00:00',500),
-  ('Obed',100008, '2018-05-29 13:00:00',700);
+INSERT INTO meals (meal,restauran_id,price) VALUES
+  ('Zavtrak',100017,500),
+  ('Obed',100018,700);
 
 INSERT INTO voite (restauran_id, date_time,voite) VALUES
-  (100007, '2018-02-20 10:00:00',5),
-  (100008, '2018-02-20 10:00:00',3);
+  (100017, '2018-02-20 10:00:00',5),
+  (100018, '2018-02-20 10:00:00',3);
+
+INSERT INTO menu (restauran_id,meal_id, date_time) VALUES
+  (100017,100002, '2018-02-20 10:00:00'),
+  (100018,100003, '2018-02-20 10:00:00');

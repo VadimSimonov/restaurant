@@ -18,10 +18,10 @@ INSERT INTO meals (meal,restauran_id,price) VALUES
   ('Zavtrak',100017,500),
   ('Obed',100018,700);
 
-INSERT INTO voite (restauran_id, date_time,voite) VALUES
-  (100017, '2018-02-20 10:00:00',5),
-  (100018, '2018-02-20 10:00:00',3);
+INSERT INTO voite (id,restauran_id, date_time,voite) VALUES
+  (100020,100017, '2018-02-20 10:00:00',5),
+  (100021,100018, '2018-02-20 10:00:00',3);
 
-INSERT INTO menu (restauran_id,meal_id, date_time) VALUES
-  (100017,100002, '2018-02-20 10:00:00'),
-  (100018,100003, '2018-02-20 10:00:00');
+INSERT INTO menu (restauran_id,meal_id,voite_id, date_time) VALUES
+  (100017,100002,100020, '2018-02-20 10:00:00'),
+  (100018,100003,100021, '2018-02-20 10:00:00');

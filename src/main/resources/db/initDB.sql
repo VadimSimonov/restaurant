@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS user_roles CASCADE;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS meals;
-DROP TABLE IF EXISTS voite;
+DROP TABLE IF EXISTS vote;
 DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
@@ -15,6 +15,13 @@ CREATE TABLE restaurants
 );
 CREATE UNIQUE INDEX restaurants_unique_name_idx ON restaurants (name);
 
+CREATE TABLE user_roles
+(
+  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  role    VARCHAR,
+  CONSTRAINT user_roles_idx UNIQUE (id)
+);
+
 CREATE TABLE meals (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   meal           VARCHAR                       NOT NULL,
@@ -27,38 +34,35 @@ CREATE TABLE meals (
 CREATE TABLE users
 (
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  role_id          INTEGER                 NOT NULL,
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
   roles            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
-  enabled          BOOL DEFAULT TRUE       NOT NULL
+  enabled          BOOL DEFAULT TRUE       NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES user_roles (id)  ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
-CREATE TABLE user_roles
-(
-  user_id INTEGER NOT NULL,
-  role    VARCHAR,
-  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+CREATE TABLE vote (
+  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  restauran_id     INTEGER                 NOT NULL,
+  user_id     INTEGER                 NOT NULL,
+  date_time         TIMESTAMP DEFAULT now() NOT NULL,
+  vote             INTEGER                 NOT NULL,
+  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id)  ON DELETE CASCADE,
+    FOREIGN KEY (user_id ) REFERENCES users (id)  ON DELETE CASCADE
 );
+CREATE UNIQUE INDEX vote_unique_restauran_idx ON vote (restauran_id);
 
 CREATE TABLE menu
 (
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   restauran_id     INTEGER                 NOT NULL,
-  meal_id          INTEGER                 NOT NULL,
+  vote_id          INTEGER                 NOT NULL,
   date_time        TIMESTAMP DEFAULT now() NOT NULL,
-  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE,
-  FOREIGN KEY (meal_id ) REFERENCES meals (id) ON DELETE CASCADE
+  FOREIGN KEY (restauran_id) REFERENCES restaurants (id) ON DELETE CASCADE,
+  FOREIGN KEY (vote_id) REFERENCES vote (id) ON DELETE CASCADE
 );
 
-CREATE TABLE voite (
-  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  restauran_id     INTEGER                 NOT NULL,
-  date_time         TIMESTAMP DEFAULT now() NOT NULL,
-  voite             INTEGER                 NOT NULL,
-  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id)  ON DELETE CASCADE
-);
-CREATE UNIQUE INDEX voite_unique_restauran_idx ON voite (restauran_id);

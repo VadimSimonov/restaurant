@@ -1,8 +1,11 @@
 package restaurant.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.EnumSet;
@@ -38,13 +41,17 @@ public class User implements UtilId {
     private boolean enabled = true;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Column(name = "roles", nullable = false)
-    private String  roles;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Role roles;
 
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, String roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Role roles) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -53,7 +60,7 @@ public class User implements UtilId {
         this.roles = roles;
     }
 
-    public User(Integer id, String name, String email, String password,  String roles) {
+    public User(Integer id, String name, String email, String password,  Role roles) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -64,7 +71,7 @@ public class User implements UtilId {
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
     }
-    public User(String name, String password, String email,String  roles) {
+    public User(String name, String password, String email,Role roles) {
         this(null, name, email,password,roles );
     }
 
@@ -107,11 +114,11 @@ public class User implements UtilId {
     public String getEmail() {
         return email;
     }
-    public String getRoles() {
+    public Role getRoles() {
 
         return roles;
     }
-    public void setRoles(String roles) {
+    public void setRoles(Role roles) {
         this.roles = roles;
     }
 

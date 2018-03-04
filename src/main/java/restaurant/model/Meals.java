@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @NamedQueries({
-        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.Restaurants.id=:restaurantId"),
+        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.restaurants.id=:restaurantId"),
         @NamedQuery(name = Meals.ALL_SORTED, query = "SELECT m FROM Meals m ORDER BY m.meal"),
-        @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.Restaurants.id=:restaurantId ORDER BY m.meal"),
+        @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.restaurants.id=:restaurantId ORDER BY m.meal"),
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "meals_unique_restaurant_idx")})
@@ -39,7 +39,7 @@ public class Meals implements UtilId {
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurants Restaurants;
+    private Restaurants restaurants;
 
     public Meals() {
     }
@@ -58,13 +58,13 @@ public class Meals implements UtilId {
     public Meals(String meal, Restaurants restaurants, int price) {
         this.meal = meal;
         this.price = price;
-        this.Restaurants = restaurants;
+        this.restaurants = restaurants;
     }
     public Meals(int id,String meal, Restaurants restaurants, int price) {
         this.id=id;
         this.meal = meal;
         this.price = price;
-        this.Restaurants = restaurants;
+        this.restaurants = restaurants;
     }
     public Meals(int id,String meal, int price) {
         this.id=id;
@@ -91,10 +91,10 @@ public class Meals implements UtilId {
         this.price = price;
     }
     public Restaurants getRestaurants() {
-        return Restaurants;
+        return this.restaurants;
     }
     public void setRestaurants(Restaurants restaurants) {
-        this.Restaurants = restaurants;
+        this.restaurants = restaurants;
     }
 
     @Override

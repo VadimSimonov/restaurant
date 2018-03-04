@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "voite", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "voite_unique_restauran_idx")})
-public class Voite implements UtilId {
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "vote_unique_restauran_idx")})
+public class Vote implements UtilId {
     public static final int START_SEQ = 100000;
 
     @Id
@@ -20,16 +20,22 @@ public class Voite implements UtilId {
     private Integer id;
     @Column(name = "date_time", columnDefinition = "timestamp default now()")
     private Date date_time=new Date();
-    @Column(name = "voite", nullable = false, unique = true)
-    private Integer voite;
+    @Column(name = "vote", nullable = false, unique = true)
+    private Integer vote;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurants Restaurants;
+    private Restaurants restaurants;
 
-    public Voite() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private User user;
+
+    public Vote() {
     }
 
     public Integer getId() {
@@ -44,16 +50,24 @@ public class Voite implements UtilId {
     public void setDate_time(Date date_time) {
         this.date_time = date_time;
     }
-    public Integer getVoite() {
-        return voite;
+    public Integer getVote() {
+        return vote;
     }
-    public void setVoite(Integer voite) {
-        this.voite = voite;
+    public void setVote(Integer voite) {
+        this.vote = voite;
     }
     public restaurant.model.Restaurants getRestaurants() {
-        return Restaurants;
+        return restaurants;
     }
     public void setRestaurants(restaurant.model.Restaurants restaurants) {
-        Restaurants = restaurants;
+        this.restaurants = restaurants;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

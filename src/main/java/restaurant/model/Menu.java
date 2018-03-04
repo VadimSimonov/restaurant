@@ -7,13 +7,14 @@ import restaurant.util.UtilId;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
-        @NamedQuery(name = Menu.ALL_Restaurants, query = "SELECT m FROM Menu m WHERE m.Restaurants.id=:restauranId " +
-                "AND m.meals.id=:mealId ORDER BY m.Restaurants.name"),
-        @NamedQuery(name = Menu.DELETE, query = "SELECT Restaurants.name, Meals.meal,Meals.price,Meals.id, Meals.Restaurants.id FROM Restaurants LEFT JOIN Meals ON Restaurants.id = Meals.Restaurants.id"),
+        @NamedQuery(name = Menu.ALL_Restaurants, query = "SELECT m FROM Menu m WHERE m.restaurants.id=:restauranId " +
+                " ORDER BY m.restaurants.name"),
+        @NamedQuery(name = Menu.DELETE, query = "SELECT Restaurants.name, Meals.meal,Meals.price,Meals.id, Meals.restaurants.id FROM Restaurants " +
+                "LEFT JOIN Meals ON Restaurants.id = Meals.restaurants.id"),
 })
 @Entity
 @Table(name = "menu")
@@ -36,39 +37,23 @@ public class Menu implements UtilId {
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurants Restaurants;
+    private Restaurants restaurants;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "meal_id", nullable = false)
+    @JoinColumn(name = "vote_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Meals meals;
+    private Vote vote;
 
     public Menu() {
     }
 
-    public Menu(LocalDateTime dateTime, Restaurants restaurants) {
-        this.dateTime = dateTime;
-        this.Restaurants = restaurants;
-    }
 
     public Integer getId() {
         return id;
     }
     public void setId(Integer id) {
         this.id = id;
-    }
-    public restaurant.model.Restaurants getRestaurants() {
-        return Restaurants;
-    }
-    public void setRestaurants(restaurant.model.Restaurants restaurants) {
-        Restaurants = restaurants;
-    }
-    public Meals getMeals() {
-        return meals;
-    }
-    public void setMeals(Meals meals) {
-        this.meals = meals;
     }
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -77,4 +62,16 @@ public class Menu implements UtilId {
         this.dateTime = dateTime;
     }
 
+    public Restaurants getRestaurants() {
+        return restaurants;
+    }
+    public void setRestaurants(Restaurants restaurants) {
+        this.restaurants = restaurants;
+    }
+    public Vote getVote() {
+        return vote;
+    }
+    public void setVote(Set<Vote> voite) {
+        this.vote = vote;
+    }
 }

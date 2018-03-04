@@ -3,6 +3,7 @@ package restaurant.model;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Restaurants.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
@@ -24,6 +25,8 @@ public class Restaurants implements UtilId {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurants")
+    private Set<Meals> meals;
 
     public Restaurants() {
     }
@@ -53,6 +56,9 @@ public class Restaurants implements UtilId {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public Set<Meals> getMeals() {
+        return meals;
     }
 
     @Override

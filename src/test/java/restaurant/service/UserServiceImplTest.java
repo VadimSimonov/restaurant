@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import restaurant.model.Role;
 import restaurant.model.User;
 import java.util.List;
 import static restaurant.UserTestData.*;
@@ -23,7 +24,8 @@ public class UserServiceImplTest implements AbstractServiceTest {
     private UserService service;
     @Test
     public void create() throws Exception {
-        User newUser = new User(null,"New","new@mail.ru","passNew","ROLE_USER");
+        User newUser = new User(null,"New","new@mail.ru","passNew",ROLE_USER);
+    //    newUser.getRole().setUser(newUser);
         User created = service.create(newUser);
         newUser.setId(created.getId());
         assertMatch(service.getAll(), ADMIN, newUser, USER);
@@ -52,6 +54,7 @@ public class UserServiceImplTest implements AbstractServiceTest {
     public void update() throws Exception {
         User updated = new User(USER);
         updated.setName("UpdatedName");
+       // updated.getRole().setUser(USER);
         service.update(updated);
         assertMatch(service.get(USER_ID), updated);
     }
@@ -59,7 +62,7 @@ public class UserServiceImplTest implements AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        assertMatch(all,ADMIN,USER);
     }
 
 

@@ -29,7 +29,7 @@ public class Vote implements UtilId {
     @NotNull
     private Restaurants restaurants;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

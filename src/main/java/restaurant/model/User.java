@@ -6,10 +6,7 @@ import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
 
 
 @NamedQueries({
@@ -46,33 +43,33 @@ public class User implements UtilId {
     @JoinColumn(name = "role_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Role roles;
+    private Role role;
 
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Role roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Role role) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 
-    public User(Integer id, String name, String email, String password,  Role roles) {
+    public User(Integer id, String name, String email, String password,  Role role) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRole());
     }
-    public User(String name, String password, String email,Role roles) {
-        this(null, name, email,password,roles );
+    public User(String name, String password, String email,Role role) {
+        this(null, name, email,password, role);
     }
 
 
@@ -114,12 +111,12 @@ public class User implements UtilId {
     public String getEmail() {
         return email;
     }
-    public Role getRoles() {
+    public Role getRole() {
 
-        return roles;
+        return role;
     }
-    public void setRoles(Role roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -131,7 +128,7 @@ public class User implements UtilId {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", email='" + email + '\'' +
-                ", roles=" + roles +
+                ", roles=" + role +
                 '}';
     }
 }

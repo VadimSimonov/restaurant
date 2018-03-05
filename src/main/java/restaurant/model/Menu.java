@@ -11,18 +11,18 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
-        @NamedQuery(name = Menu.ALL_Restaurants, query = "SELECT m FROM Menu m WHERE m.restaurants.id=:restauranId " +
-                " ORDER BY m.restaurants.name"),
-        @NamedQuery(name = Menu.DELETE, query = "SELECT Restaurants.name, Meals.meal,Meals.price,Meals.id, Meals.restaurants.id FROM Restaurants " +
-                "LEFT JOIN Meals ON Restaurants.id = Meals.restaurants.id"),
+     //   @NamedQuery(name = Menu.ALL_Restaurants, query = "SELECT m FROM Menu m WHERE m.restaurants.id=:restauranId " +
+     //           " ORDER BY m.restaurants.name"),
+     //   @NamedQuery(name = Menu.getAllSorted, query = "SELECT Restaurants.name, Meals.meal,Meals.price,Meals.id, Meals.restaurants.id FROM Restaurants " +
+     //           "LEFT JOIN Meals ON Restaurants.id = Meals.restaurants.id"),
 })
 @Entity
 @Table(name = "menu")
 public class Menu implements UtilId {
     public static final int START_SEQ = 100000;
 
-    public static final String DELETE = "Restaurants.delete";
-    public static final String ALL_Restaurants = "Restaurants.getAllSorted";
+    public static final String DELETE = "Menu.delete";
+    public static final String ALL_Restaurants = "Menu.getAllSorted";
 
     @Id
     @Column(name="id", nullable = false, unique = true)
@@ -30,20 +30,14 @@ public class Menu implements UtilId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
 
-    @Column(name = "date_time", columnDefinition = "timestamp default now()")
-    private LocalDateTime dateTime;
+    @Column(name = "date", columnDefinition = "timestamp default now()")
+    private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurants restaurants;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vote_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private Vote vote;
+    private Set<Restaurants> restaurants;
 
     public Menu() {
     }
@@ -55,23 +49,16 @@ public class Menu implements UtilId {
     public void setId(Integer id) {
         this.id = id;
     }
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getDate() {
+        return date;
     }
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
-
-    public Restaurants getRestaurants() {
+    public Set<Restaurants> getRestaurants() {
         return restaurants;
     }
-    public void setRestaurants(Restaurants restaurants) {
+    public void setRestaurants(Set<Restaurants> restaurants) {
         this.restaurants = restaurants;
-    }
-    public Vote getVote() {
-        return vote;
-    }
-    public void setVote(Set<Vote> voite) {
-        this.vote = vote;
     }
 }

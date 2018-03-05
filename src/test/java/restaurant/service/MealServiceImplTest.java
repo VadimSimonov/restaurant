@@ -1,6 +1,5 @@
 package restaurant.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class MealServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void delete() throws Exception {
-        service.delete(newMeals_ID,newRestaurant_ID);
+        service.delete(Meals_ID2, Restaurant_ID2);
         assertMatch(service.getAll(),MEAL1);
     }
 

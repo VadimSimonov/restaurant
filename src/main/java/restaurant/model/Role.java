@@ -18,9 +18,18 @@ public class Role {
     @Column(name = "role")
     private String role;
 
- //   @OneToMany(mappedBy = "roles")
- //   private Set<User> users;
 
+    public Role(String role) {
+        this.role = role;
+    }
+
+    public Role() {
+    }
+
+    public Role(int id, String role) {
+        this.id = id;
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;
@@ -37,6 +46,7 @@ public class Role {
     public void setRole(String role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {

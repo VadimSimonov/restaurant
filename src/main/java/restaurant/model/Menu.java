@@ -2,19 +2,18 @@ package restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.util.CollectionUtils;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.*;
 
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
-     //   @NamedQuery(name = Menu.ALL_Restaurants, query = "SELECT m FROM Menu m WHERE m.restaurants.id=:restauranId " +
-     //           " ORDER BY m.restaurants.name"),
-     //   @NamedQuery(name = Menu.getAllSorted, query = "SELECT Restaurants.name, Meals.meal,Meals.price,Meals.id, Meals.restaurants.id FROM Restaurants " +
-     //           "LEFT JOIN Meals ON Restaurants.id = Meals.restaurants.id"),
+        @NamedQuery(name = Menu.getAllSorted, query = "SELECT m FROM Menu m"),
 })
 @Entity
 @Table(name = "menu")
@@ -22,7 +21,7 @@ public class Menu implements UtilId {
     public static final int START_SEQ = 100000;
 
     public static final String DELETE = "Menu.delete";
-    public static final String ALL_Restaurants = "Menu.getAllSorted";
+    public static final String getAllSorted = "Menu.getAllSorted";
 
     @Id
     @Column(name="id", nullable = false, unique = true)
@@ -31,17 +30,28 @@ public class Menu implements UtilId {
     private Integer id;
 
     @Column(name = "date", columnDefinition = "timestamp default now()")
-    private LocalDateTime date;
+    private LocalDate date;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restauran_id", nullable = false)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
+   // @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
     private Set<Restaurants> restaurants;
 
     public Menu() {
     }
 
+    public Menu(int id,LocalDate date, Set<Restaurants> restaurants) {
+        this.id=id;
+        this.date = date;
+        this.restaurants = restaurants;
+    }
+
+    public Menu(int id,LocalDate date, Collection<Restaurants> restaurants) {
+        this.id=id;
+        this.date = date;
+        this.restaurants = new HashSet<>(restaurants);
+    }
 
     public Integer getId() {
         return id;
@@ -49,10 +59,10 @@ public class Menu implements UtilId {
     public void setId(Integer id) {
         this.id = id;
     }
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
     public Set<Restaurants> getRestaurants() {
@@ -60,5 +70,23 @@ public class Menu implements UtilId {
     }
     public void setRestaurants(Set<Restaurants> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Menu menu = (Menu) o;
+
+        if (getId() != null ? !getId().equals(menu.getId()) : menu.getId() != null) return false;
+        return getDate() != null ? getDate().equals(menu.getDate()) : menu.getDate() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getDate() != null ? getDate().hashCode() : 0);
+        return result;
     }
 }

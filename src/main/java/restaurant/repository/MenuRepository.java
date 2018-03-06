@@ -14,5 +14,4 @@ public interface MenuRepository {
 
     List<Menu> getAll();
 
-    List<Menu> getAllByRestaurantId(int restaurantId);
 }

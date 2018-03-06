@@ -30,16 +30,12 @@ public class jpaMenuRepositoryImpl implements MenuRepository {
 
     @Override
     public Menu get(int id) {
-        return null;
+        return em.find(Menu.class, id);
     }
 
     @Override
     public List<Menu> getAll() {
-        return null;
+        return em.createNamedQuery(Menu.getAllSorted, Menu.class).getResultList();
     }
 
-    @Override
-    public List<Menu> getAllByRestaurantId(int restaurantId) {
-        return null;
-    }
 }

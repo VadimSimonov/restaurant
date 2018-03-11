@@ -34,9 +34,10 @@ public class Restaurants implements UtilId {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
     private Set<Vote> votes;
 
-    /*
-    @ManyToMany(fetch = FetchType.LAZY)
 
+ //   @ManyToMany(mappedBy = "restaurants")
+ //   private Set<Menu> menu;
+/*
     //@JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Menu> menu;
@@ -82,8 +83,8 @@ public class Restaurants implements UtilId {
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
-  /*
-    public Set<Menu> getMenu() {
+
+  /*  public Set<Menu> getMenu() {
         return menu;
     }
     public void setMenu(Set<Menu> menu) {

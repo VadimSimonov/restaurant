@@ -14,7 +14,8 @@ import static restaurant.model.User.START_SEQ;
 public class MealTestData {
     public static final Restaurants Restaurant1=new Restaurants("Restaurant1");
     public static final Restaurants Restaurant2=new Restaurants("Restaurant2");
-
+    public static final Restaurants RestaurantInDb1=new Restaurants(100017,"Restaurant1");
+    public static final Restaurants RestaurantInDb2=new Restaurants(100018,"Restaurant2");
 
     public static final List<Restaurants>RestaurantsList= Arrays.asList(Restaurant1,Restaurant2);
 

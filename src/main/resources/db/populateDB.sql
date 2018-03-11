@@ -20,9 +20,9 @@ INSERT INTO users (id,role_id,name, email, password) VALUES
   (100001,100020,'User', 'user@yandex.ru', 'password'),
   (100002,100021,'Admin', 'admin@gmail.com', 'admin');
 
-INSERT INTO restaurants (id,menu_id,name) VALUES
-  (100017,100030,'Restaurant1'),
-  (100018,100030,'Restaurant2');
+INSERT INTO restaurants (id,name) VALUES
+  (100017,'Restaurant1'),
+  (100018,'Restaurant2');
 
 INSERT INTO meals (meal,restauran_id,price) VALUES
   ('Zavtrak',100017,500),

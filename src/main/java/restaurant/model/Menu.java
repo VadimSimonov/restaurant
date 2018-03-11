@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @NamedQueries({
-        @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
+        @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
         @NamedQuery(name = Menu.getAllSorted, query = "SELECT m FROM Menu m"),
 })
 @Entity
@@ -32,7 +32,7 @@ public class Menu implements UtilId {
     @Column(name = "date", columnDefinition = "timestamp default now()")
     private LocalDate date;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
    // @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -46,11 +46,23 @@ public class Menu implements UtilId {
         this.date = date;
         this.restaurants = restaurants;
     }
+    public Menu(LocalDate date, Restaurants restaurants) {
+        this.date = date;
+        this.restaurants = new HashSet<>(Arrays.asList(restaurants));
+    }
+    public Menu(LocalDate date, Collection<Restaurants> restaurants) {
+        this.date = date;
+        this.restaurants = new HashSet<>(restaurants);
+    }
 
     public Menu(int id,LocalDate date, Collection<Restaurants> restaurants) {
         this.id=id;
         this.date = date;
         this.restaurants = new HashSet<>(restaurants);
+    }
+
+    public Menu(LocalDate date) {
+        this.date = date;
     }
 
     public Integer getId() {
@@ -71,6 +83,9 @@ public class Menu implements UtilId {
     public void setRestaurants(Set<Restaurants> restaurants) {
         this.restaurants = restaurants;
     }
+    public void setRestaurants2(Restaurants restaurants) {
+        this.restaurants = new HashSet<>(Arrays.asList(restaurants));
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,5 +103,13 @@ public class Menu implements UtilId {
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getDate() != null ? getDate().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", date=" + date +
+                '}';
     }
 }

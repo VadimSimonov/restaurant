@@ -12,6 +12,7 @@ import restaurant.model.Menu;
 
 import java.util.List;
 
+import static restaurant.MealTestData.*;
 import static restaurant.MenuTestData.*;
 
 @ContextConfiguration({
@@ -25,10 +26,14 @@ public class MenuServiceImplTest {
 
     @Test
     public void create() throws Exception {
+        service.create(CREATEMENU);
+        assertMatch(service.getAll(),MENU1,MENU2,CREATEMENU);
     }
 
     @Test
     public void delete() throws Exception {
+        service.delete(Menu_ID2);
+        assertMatch(service.getAll(),MENU1);
     }
 
     @Test
@@ -40,6 +45,7 @@ public class MenuServiceImplTest {
 
     @Test
     public void update() throws Exception {
+
     }
 
     @Test

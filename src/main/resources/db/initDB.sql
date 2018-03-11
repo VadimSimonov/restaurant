@@ -19,9 +19,8 @@ CREATE TABLE menu
 CREATE TABLE restaurants
 (
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  menu_id     INTEGER,
   name    VARCHAR                      NOT NULL,
-  FOREIGN KEY (menu_id) REFERENCES menu (id) ON DELETE CASCADE
+    UNIQUE (name)
 );
 /* CREATE UNIQUE INDEX restaurants_unique_name_idx ON restaurants (name); */
 

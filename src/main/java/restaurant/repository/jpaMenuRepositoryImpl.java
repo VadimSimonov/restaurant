@@ -2,7 +2,6 @@ package restaurant.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import restaurant.model.Meals;
 import restaurant.model.Menu;
 import restaurant.model.Restaurants;
 
@@ -20,10 +19,11 @@ public class jpaMenuRepositoryImpl implements MenuRepository {
 
     @Override
     @Transactional
-    public Menu save(Menu menu) {
-        if (!menu.isNew() && get(menu.getId()) == null) {
+    public Menu save(Menu menu, int restaurantId) {
+        if (!menu.isNew() && get(menu.getId(),restaurantId) == null) {
             return null;
         }
+        menu.setRestaurant(em.getReference(Restaurants.class, restaurantId));
         if (menu.isNew()) {
             em.persist(menu);
             return menu;
@@ -41,8 +41,9 @@ public class jpaMenuRepositoryImpl implements MenuRepository {
     }
 
     @Override
-    public Menu get(int id) {
-        return em.find(Menu.class, id);
+    public Menu get(int id,int restaurantId) {
+        Menu menu = em.find(Menu.class, id);
+        return menu != null && menu.getRestaurant().getId() == restaurantId ? menu : null;
     }
 
     @Override

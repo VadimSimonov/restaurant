@@ -32,13 +32,17 @@ public class Menu implements UtilId {
     @Column(name = "date", columnDefinition = "timestamp default now()")
     private LocalDate date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
    // @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Restaurants> restaurants;
 
     public Menu() {
+    }
+    public Menu(int id,LocalDate date) {
+        this.id=id;
+        this.date = date;
     }
 
     public Menu(int id,LocalDate date, Set<Restaurants> restaurants) {
@@ -80,10 +84,13 @@ public class Menu implements UtilId {
     public Set<Restaurants> getRestaurants() {
         return restaurants;
     }
+    public Restaurants getRestaurant() {
+        return restaurants.iterator().next();
+    }
     public void setRestaurants(Set<Restaurants> restaurants) {
         this.restaurants = restaurants;
     }
-    public void setRestaurants2(Restaurants restaurants) {
+    public void setRestaurant(Restaurants restaurants) {
         this.restaurants = new HashSet<>(Arrays.asList(restaurants));
     }
 

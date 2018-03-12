@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import restaurant.model.Menu;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static restaurant.MealTestData.*;
@@ -26,7 +27,7 @@ public class MenuServiceImplTest {
 
     @Test
     public void create() throws Exception {
-        service.create(CREATEMENU);
+        service.create(CREATEMENU,Restaurant_ID2);
         assertMatch(service.getAll(),MENU1,MENU2,CREATEMENU);
     }
 
@@ -38,14 +39,17 @@ public class MenuServiceImplTest {
 
     @Test
     public void get() throws Exception {
-        Menu menu = service.get(Menu_ID1);
-        Assert.assertEquals(2,menu.getRestaurants().size());
-        assertMatch(menu,MENU1);
+        Menu menu = service.get(Menu_ID2,Restaurant_ID2);
+        Assert.assertEquals(1,menu.getRestaurants().size());
+        assertMatch(menu,MENU2);
     }
 
     @Test
     public void update() throws Exception {
-
+        Menu update = MENU1;
+        update.setDate(LocalDate.of(2020,01,01));
+        service.update(update,Restaurant_ID);
+        assertMatch(service.get(Menu_ID1,Restaurant_ID),update);
     }
 
     @Test
@@ -53,7 +57,7 @@ public class MenuServiceImplTest {
         List<Menu> all = service.getAll();
         Assert.assertEquals(2,all.size());
         Assert.assertEquals(2,all.get(0).getRestaurants().size());
-        Assert.assertEquals(0,all.get(1).getRestaurants().size());
+        Assert.assertEquals(1,all.get(1).getRestaurants().size());
         assertMatch(all,MENU1,MENU2);
     }
 

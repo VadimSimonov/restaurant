@@ -48,8 +48,8 @@ public class MenuServiceImplTest {
     public void update() throws Exception {
         Menu update = MENU1;
         update.setDate(LocalDate.of(2020,01,01));
-        service.update(update,Restaurant_ID);
-        assertMatch(service.get(Menu_ID1,Restaurant_ID),update);
+        service.update(update, Restaurant_ID1);
+        assertMatch(service.get(Menu_ID1, Restaurant_ID1),update);
     }
 
     @Test

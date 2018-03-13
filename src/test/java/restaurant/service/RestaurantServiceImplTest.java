@@ -1,6 +1,5 @@
 package restaurant.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import restaurant.model.Restaurants;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static restaurant.MealTestData.*;
@@ -34,13 +31,13 @@ public class RestaurantServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void delete() throws Exception {
-        restaurantService.delete(Restaurant_ID);
+        restaurantService.delete(Restaurant_ID1);
         assertMatchRestaurants(restaurantService.getAll(),Restaurant2);
     }
 
     @Test
     public void get() throws Exception {
-        Restaurants restaurant = restaurantService.get(Restaurant_ID);
+        Restaurants restaurant = restaurantService.get(Restaurant_ID1);
         assertMatchRestaurants(restaurant,Restaurant1);
     }
 
@@ -48,7 +45,7 @@ public class RestaurantServiceImplTest implements AbstractServiceTest {
     public void update() throws Exception {
         Restaurants updated = new Restaurants(Restaurant1);
         updated.setName("UpdatedName");
-        updated.setId(Restaurant_ID);
+        updated.setId(Restaurant_ID1);
         restaurantService.update(updated);
         assertMatchRestaurants(restaurantService.getAll(),Restaurant2,UpdateRestaurants);
     }

@@ -18,7 +18,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     public Menu create(Menu menu,int restaurantId) {
-        Assert.notNull(menu, "user must not be null");
+        Assert.notNull(menu, "menu must not be null");
         return repository.save(menu,restaurantId);
     }
 

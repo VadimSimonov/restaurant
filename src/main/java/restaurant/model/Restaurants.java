@@ -31,8 +31,8 @@ public class Restaurants implements UtilId {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
     private Set<Meals> meals;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
-    private Set<Vote> votes;
+   // @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
+  //  private Set<Vote> votes;
 
 
  //   @ManyToMany(mappedBy = "restaurants")
@@ -77,13 +77,14 @@ public class Restaurants implements UtilId {
     public void setMeals(Set<Meals> meals) {
         this.meals = meals;
     }
+  /*
     public Set<Vote> getVotes() {
         return votes;
     }
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
-
+*/
   /*  public Set<Menu> getMenu() {
         return menu;
     }

@@ -24,7 +24,7 @@ public class MealServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void create() throws Exception {
-        service.create(CreateMEAL,Restaurant_ID);
+        service.create(CreateMEAL, Restaurant_ID1);
         assertMatch(service.getAll(),CreateMEAL,MEAL2,MEAL1);
     }
 
@@ -36,14 +36,14 @@ public class MealServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        Meals meal = service.get(Meals_ID, Restaurant_ID);
+        Meals meal = service.get(Meals_ID, Restaurant_ID1);
         assertMatch(meal,MEAL1);
     }
 
     @Test
     public void update() throws Exception {
-        Meals meal = service.update(UpdateMEAL, Restaurant_ID);
-        assertMatch(service.get(Meals_ID,Restaurant_ID),meal);
+        Meals meal = service.update(UpdateMEAL, Restaurant_ID1);
+        assertMatch(service.get(Meals_ID, Restaurant_ID1),meal);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class MealServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void getAllByRestaurantId()throws Exception {
-        List<Meals> all = service.getAllByRestaurantId(Restaurant_ID);
+        List<Meals> all = service.getAllByRestaurantId(Restaurant_ID1);
         assertMatch(all,MEAL1);
     }
 

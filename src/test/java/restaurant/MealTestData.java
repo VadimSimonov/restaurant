@@ -21,8 +21,8 @@ public class MealTestData {
 
     public static final int Meals_ID = START_SEQ;
     public static final int Meals_ID2 = START_SEQ +1;
-    public static final int Restaurant_ID = 100017;
-    public static final int Restaurant_ID2 = 100018;
+    public static final int Restaurant_ID1 = 100060;
+    public static final int Restaurant_ID2 = 100061;
 
     public static final Meals MEAL1 =new Meals(Meals_ID,"Zavtrak",Restaurant1,500);
           //  of(2018, Month.MAY, 30, 13, 0),500);

@@ -2,11 +2,12 @@ package restaurant.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_roles")
-public class Role {
+public class Role implements Serializable {
     public static final int START_SEQ = 100000;
 
     @Id

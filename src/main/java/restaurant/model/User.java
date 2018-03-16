@@ -13,6 +13,8 @@ import java.util.Date;
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u  ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.GET_ROLE, query = "SELECT u FROM Role u WHERE u.role LIKE :user_role"),
+
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
@@ -22,6 +24,7 @@ public class User implements UtilId {
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
+    public static final String GET_ROLE = "User.getRole";
 
     @Id
     @Column(name="id", nullable = false, unique = true)
@@ -42,7 +45,7 @@ public class User implements UtilId {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
+   // @NotNull
     private Role role;
 
     public User() {
@@ -128,7 +131,7 @@ public class User implements UtilId {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", email='" + email + '\'' +
-                ", roles=" + role +
+                ", role=" + role +
                 '}';
     }
 }

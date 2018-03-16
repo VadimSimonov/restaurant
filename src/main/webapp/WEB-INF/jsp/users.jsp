@@ -35,7 +35,7 @@
                 <tr>
                     <td><c:out value="${user.name}"/></td>
                     <td><a href="mailto:${user.email}">${user.email}</a></td>
-                    <td>${user.role}</td>
+                    <td>${user.role.role}</td>
                     <td><input type="checkbox" <c:if test="${user.enabled}">checked</c:if> id="${user.id}"/></td>
                     <td><fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/></td>
                     <td><a onclick="editRow(${user.id})"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
@@ -74,17 +74,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="roles" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
-
+                        <label for="role" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
                         <!-- div class="col-xs-9"> -->
-                            <select id="roles">
-                                <option value="None">-- Select --</option>
-                                <option value="ROLE_ADMIN">ADMIN</option>
-                                <option value="ROLE_USER">USER</option>
-                            </select>
-                        <!--
-                        </div>
-                        -->
+                             <select id="role" >
+                                  <option value="None">-- Select --</option>
+                                  <option value="ROLE_ADMIN">ADMIN</option>
+                                  <option value="ROLE_USER">USER</option>
+                              </select>
+                          <!--
+                          </div>
+                          -->
                     </div>
 
                     <div class="form-group">

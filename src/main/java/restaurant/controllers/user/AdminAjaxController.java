@@ -30,18 +30,12 @@ public class AdminAjaxController extends AbstractUserController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid User userTo) {
-        if (userTo.isNew()) {
-            super.create(new User(userTo));
+    public void createOrUpdate(@Valid User user) {
+        if (user.isNew()) {
+            super.create(new User(user));
         } else {
-            super.update(userTo, userTo.getId());
+            super.update(user, user.getId());
         }
     }
-/*
-    @Override
-    @PostMapping(value = "/{id}")
-    public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
-        super.enable(id, enabled);
-    }
-    */
+
 }

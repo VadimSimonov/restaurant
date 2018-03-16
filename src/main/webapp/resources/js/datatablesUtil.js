@@ -77,7 +77,7 @@ function save() {
             id : $('#id').val(),
             name : $('#name').val(),
             email : $('#email').val(),
-            roles : $('#roles').val(),
+            role : $('#role').val(),
             password : $('#password').val()
         },
         success: function () {

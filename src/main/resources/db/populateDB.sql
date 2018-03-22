@@ -23,7 +23,8 @@ INSERT INTO users (id,role_id,name, email, password) VALUES
 
 INSERT INTO restaurants (id,name) VALUES
   (100060,'Restaurant1'),
-  (100061,'Restaurant2');
+  (100061,'Restaurant2'),
+  (100062,'Restaurant3');
 
 INSERT INTO meals (meal,restauran_id,price) VALUES
   ('Zavtrak',100060,500),

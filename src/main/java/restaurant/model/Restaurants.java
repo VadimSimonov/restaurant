@@ -1,11 +1,9 @@
 package restaurant.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @NamedQueries({
@@ -28,20 +26,11 @@ public class Restaurants implements UtilId {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants", cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    @JsonManagedReference
     private Set<Meals> meals;
 
-   // @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants")
-  //  private Set<Vote> votes;
-
-
- //   @ManyToMany(mappedBy = "restaurants")
- //   private Set<Menu> menu;
-/*
-    //@JoinColumn(name = "menu_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Menu> menu;
-*/
     public Restaurants() {
     }
 
@@ -77,21 +66,7 @@ public class Restaurants implements UtilId {
     public void setMeals(Set<Meals> meals) {
         this.meals = meals;
     }
-  /*
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }
-*/
-  /*  public Set<Menu> getMenu() {
-        return menu;
-    }
-    public void setMenu(Set<Menu> menu) {
-        this.menu = menu;
-    }
-*/
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

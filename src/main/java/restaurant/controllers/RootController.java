@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import restaurant.controllers.user.AuthorizedUser;
 import restaurant.model.User;
+import restaurant.service.RestaurantService;
 import restaurant.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -14,6 +15,9 @@ import java.util.Objects;
 public class RootController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
 
     @GetMapping("/")
@@ -34,6 +38,13 @@ public class RootController {
         model.addAttribute("users", userService.getAll());
         return "users";
     }
+
+    @GetMapping("/restaurants")
+    public String restaurants(Model model) {
+        model.addAttribute("restaurants", restaurantService.getAll());
+        return "restaurants";
+    }
+
 
 
     private int getId(HttpServletRequest request) {

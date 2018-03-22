@@ -69,7 +69,7 @@
                         <label for="email" class="control-label col-xs-3"><spring:message code="user.email"/></label>
 
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="<spring:message code="user.email"/>">
+                            <input type="email" class="form-control" id="email"  placeholder="<spring:message code="user.email"/>">
                         </div>
                     </div>
 

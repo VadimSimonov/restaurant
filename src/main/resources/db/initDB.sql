@@ -17,19 +17,29 @@ CREATE TABLE menu
   UNIQUE (date)
 );
 
-CREATE TABLE restaurants
-(
-  id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name    VARCHAR                      NOT NULL,
-    UNIQUE (name)
-);
-/* CREATE UNIQUE INDEX restaurants_unique_name_idx ON restaurants (name); */
-
 CREATE TABLE user_roles
 (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   role    VARCHAR                      NOT NULL
 );
+
+CREATE TABLE restaurants
+(
+  id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name    VARCHAR                      NOT NULL,
+  UNIQUE (name)
+  /* FOREIGN KEY (meals_id ) REFERENCES meals (id) ON DELETE CASCADE*/
+);
+
+CREATE TABLE meals (
+  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  restauran_id INTEGER                       ,
+  meal           VARCHAR                       NOT NULL,
+  price             INTEGER                       NOT NULL,
+   FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE
+);
+/*CREATE UNIQUE INDEX meals_unique_restaurant_idx ON meals (restauran_id); */
+
 
 CREATE TABLE menu_day
 (
@@ -50,14 +60,6 @@ CREATE TABLE users
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
-CREATE TABLE meals (
-  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  meal           VARCHAR                       NOT NULL,
-  restauran_id     INTEGER                       NOT NULL,
-  price             INTEGER                       NOT NULL,
-  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE
-);
-/*CREATE UNIQUE INDEX meals_unique_restaurant_idx ON meals (restauran_id); */
 
 CREATE TABLE vote (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),

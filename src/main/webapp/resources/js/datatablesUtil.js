@@ -2,6 +2,7 @@ var form;
 
 function makeEditable() {
     form =$('#detailsForm');
+    formR =$('#detailsFormRestaurant');
 
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -11,6 +12,12 @@ function makeEditable() {
         save();
         return false;
     });
+
+    formR.submit(function () {
+        saveRestaurant();
+        return false;
+    });
+
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(jqXHR);
@@ -24,6 +31,7 @@ function add() {
     $("#detailsForm").find(":input").val("");
     $("#editRow").modal();
 }
+
 
 function deleteRow(id) {
     $.ajax({
@@ -51,19 +59,10 @@ function editRow(id) {
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#email').val(data.email);
+            $('#role').val(data.role);
             $('#password').val(data.password);
         $('#editRow').modal();
     });
-
-    /*
-    $.get(ajaxUrl + id, function (data) {
-        $.each(data, function (key, value) {
-             form.find("input[name='" + key + "']").val(frm(key, value));
-          //  $("#modalTitle").find("input[name='" + key + "']").val(value);
-        });
-        $('#editRow').modal();
-    });
-    */
 }
 
 
@@ -87,31 +86,6 @@ function save() {
         }
     });
 }
-
-
-
-/*
-function save() {
-    var data = {}
-    data["id"]=$("#id").val();
-    data["name"]=$("#name").val();
-    data["password"]=$("#password").val();
-    data["email"]=$("#email").val();
-    data["roles"]=$("#roles").val();
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data: JSON.stringify(data),
-        success: function () {
-            $("#editRow").modal("hide");
-            updateTable();
-            successNoty("Saved");
-        }
-    });
-}
-*/
-
-
 
 var failedNote;
 

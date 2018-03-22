@@ -1,13 +1,12 @@
 package restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.restaurants.id=:restaurantId"),
@@ -30,8 +29,7 @@ public class Meals implements UtilId {
     private Integer id;
     @Column(name = "meal", nullable = false)
     private String meal;
-   // @Column(name = "date_time", columnDefinition = "timestamp default now()")
-   // private LocalDateTime dateTime;
+
     @Column(name = "price", nullable = false)
     private int price;
 
@@ -39,6 +37,7 @@ public class Meals implements UtilId {
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @JsonBackReference
     private Restaurants restaurants;
 
     public Meals() {

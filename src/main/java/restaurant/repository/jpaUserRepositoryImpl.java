@@ -26,6 +26,9 @@ public class jpaUserRepositoryImpl implements UserRepository {
             em.persist(user);
             return user;
         } else {
+            Role rol = (Role) em.createNamedQuery(User.GET_ROLE)
+                    .setParameter("user_role", user.getRole().getRole()).getSingleResult();
+            user.setRole(em.getReference(Role.class,rol.getId()));
             return em.merge(user);
         }
     }

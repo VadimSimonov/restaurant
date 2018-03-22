@@ -14,7 +14,8 @@ public class AdminAjaxController extends AbstractUserController {
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
-        return super.getAll();
+        List<User> all = super.getAll();
+        return all;
     }
 
     @Override

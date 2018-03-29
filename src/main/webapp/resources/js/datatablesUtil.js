@@ -1,8 +1,11 @@
 var form;
+var formM;
+var formR;
 
 function makeEditable() {
     form =$('#detailsForm');
     formR =$('#detailsFormRestaurant');
+    formM =$('#detailsFormMeals');
 
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -10,6 +13,11 @@ function makeEditable() {
 
     form.submit(function () {
         save();
+        return false;
+    });
+
+    formM.submit(function () {
+        saveMeals();
         return false;
     });
 

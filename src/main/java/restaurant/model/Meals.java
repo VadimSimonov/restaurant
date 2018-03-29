@@ -23,7 +23,7 @@ public class Meals implements UtilId {
     public static final String ALL_SORTEDBYID = "Meals.getAllSortedById";
 
     @Id
-    @Column(name="id", nullable = false, unique = true)
+    @Column(name="id", unique = true)
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
@@ -43,7 +43,7 @@ public class Meals implements UtilId {
     public Meals() {
     }
 
-    public Meals(Integer id, String meal, int price) {
+    public Meals(Integer id, String meal, Integer price) {
         this.id = id;
         this.meal = meal;
         this.price = price;
@@ -52,6 +52,10 @@ public class Meals implements UtilId {
     public Meals(String meal, int price) {
         this.meal = meal;
         this.price = price;
+    }
+
+    public Meals(Meals meals) {
+      this(meals.getId(), meals.getMeal(), meals.getPrice());
     }
 
     public Meals(String meal, Restaurants restaurants, int price) {
@@ -65,7 +69,17 @@ public class Meals implements UtilId {
         this.price = price;
         this.restaurants = restaurants;
     }
-    public Meals(int id,String meal, int price) {
+/*
+    public Meals(int id,String meal, Integer restaurants, int price) {
+        this.id=id;
+        this.meal = meal;
+        this.price = price;
+        this.restaurants=restaurants
+       // this.restaurants = setRestaurants(restaurants);
+    }
+    */
+
+    public Meals(Integer id,String meal, int price) {
         this.id=id;
         this.meal = meal;
         this.price = price;
@@ -92,9 +106,24 @@ public class Meals implements UtilId {
     public Restaurants getRestaurants() {
         return this.restaurants;
     }
+/*
+    public Restaurants getIdFromName(String name) {
+        return setRestaurants(Integer.valueOf(name));
+    }
+    */
     public void setRestaurants(Restaurants restaurants) {
+        /*
+        if (restaurants.getName()!=null && restaurants.getId()==null){
+            this.restaurants=getIdFromName(restaurants.getName());
+        }else
+            */
         this.restaurants = restaurants;
     }
+/*
+    public Restaurants setRestaurants(Integer restaurants) {
+        return new Restaurants(restaurants);
+    }
+    */
 
     @Override
     public String toString() {

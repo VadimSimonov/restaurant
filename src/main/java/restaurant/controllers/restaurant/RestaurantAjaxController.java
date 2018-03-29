@@ -5,46 +5,63 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import restaurant.model.Meals;
 import restaurant.model.Restaurants;
+import restaurant.service.MealService;
 import restaurant.service.RestaurantService;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/admin/restaurants")
+//@RequestMapping("/ajax/admin/restaurants")
 public class RestaurantAjaxController  {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private RestaurantService service;
+    private RestaurantService restaurantService;
 
+    @Autowired
+    private MealService mealService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/ajax/admin/restaurants",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurants> getAll() {
         log.info("getAll {}");
-        List<Restaurants> all = service.getAll();
+        List<Restaurants> all = restaurantService.getAll();
         return all;
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/ajax/admin/restaurants/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurants get(@PathVariable("id") int id) {
-        return service.get(id);
+        return restaurantService.get(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/ajax/admin/restaurants/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete {}", id);
-        service.delete(id);
+        restaurantService.delete(id);
     }
 
-    @PostMapping
+    @PostMapping("/ajax/admin/restaurants")
     public void createOrUpdate(@Valid Restaurants restaurants) {
         log.info("create {}", restaurants);
         if (restaurants.isNew()) {
-            service.create(new Restaurants(restaurants));
+            restaurantService.create(new Restaurants(restaurants));
         } else {
-            service.update(restaurants);
+            restaurantService.update(restaurants);
+        }
+    }
+
+    @PostMapping("/ajax/admin/restaurants/{id}/meals")
+    public void createOrUpdateMeals(@RequestParam("id") String id,@RequestParam("meal") String meal,
+                                    @RequestParam("price") String price,@PathVariable("id") int restaurantId) {
+        Meals meals = new Meals(id.equals("")?null:Integer.valueOf(id),meal,Integer.valueOf(price));
+        log.info("create {}", meals);
+        if (meals.isNew()) {
+            mealService.create(meals,restaurantId);
+        } else {
+            mealService.update(meals,restaurantId);
         }
     }
 

@@ -34,6 +34,10 @@ public class Restaurants implements UtilId {
     public Restaurants() {
     }
 
+    public Restaurants(Integer id) {
+        this.id=id;
+    }
+
     public Restaurants(String name) {
         this.name = name;
     }

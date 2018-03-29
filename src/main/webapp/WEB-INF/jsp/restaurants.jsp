@@ -23,9 +23,9 @@
             <tr>
                 <th><spring:message code="restaurants.name"/></th>
                 <th><spring:message code="restaurants.meals.size"/></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th><spring:message code="restaurants.meals.add"/></th>
+                <th><spring:message code="edit"/></th>
+                <th><spring:message code="delete"/></th>
             </tr>
             </thead>
             <c:forEach items="${restaurants}" var="restaurants">
@@ -79,10 +79,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="restaurants.add"/></h2>
+                <h2 class="modal-title"><spring:message code="restaurants.meals.add"/></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsFormMeals">
+                    <input type="hidden" id="restaurant_id" name="restaurant_id">
                     <input type="hidden" id="meal_id" name="id">
 
                     <div class="form-group">
@@ -94,7 +95,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><spring:message code="restaurants.name"/></label>
+                        <label for="name" class="control-label col-xs-3"><spring:message code="price"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="meal_price" name="price" placeholder="<spring:message code="price"/>">

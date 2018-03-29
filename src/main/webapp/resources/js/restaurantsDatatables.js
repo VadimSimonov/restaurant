@@ -1,5 +1,6 @@
 var ajaxUrl = "ajax/admin/restaurants/";
 var datatableApi;
+var id;
 
 $(function () {
     datatableApi = $("#datatableRestaurants").DataTable({
@@ -47,6 +48,37 @@ function restaurantsEditRow(id) {
     });
 }
 
+function addMeals(id) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + id
+    }).done(function (data) {
+        $('#restaurant_id').val(data.id);
+    //    $('#name').val(data.name);
+        $('#editMeals').modal();
+    });
+}
+
+function saveMeals() {
+    form = $("#detailsFormMeals");
+    id=$('#restaurant_id').val();
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + id + "/meals",
+        data : {
+            id : $('#meal_id').val(),
+            meal : $('#meal_name').val(),
+            price : $('#meal_price').val()
+          //  restaurants: $('#restaurant_id').val()
+        },
+        success: function () {
+            $("#editMeals").modal("hide");
+            updateTable();
+            successNoty("Saved");
+        }
+    });
+}
+
 function saveRestaurant() {
     form = $("#detailsFormRestaurant");
     $.ajax({
@@ -54,8 +86,7 @@ function saveRestaurant() {
         url: ajaxUrl,
         data : {
             id : $('#id').val(),
-            name : $('#name').val(),
-        //    meals :$('#meals').val(),
+            name : $('#name').val()
         },
         success: function () {
             $("#editRow").modal("hide");

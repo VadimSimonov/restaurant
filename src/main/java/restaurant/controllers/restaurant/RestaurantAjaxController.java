@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import restaurant.model.Meals;
 import restaurant.model.Restaurants;
 import restaurant.service.MealService;
@@ -12,6 +13,7 @@ import restaurant.service.RestaurantService;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
+import javax.xml.soap.SOAPElement;
 import java.util.List;
 
 @RestController
@@ -63,6 +65,16 @@ public class RestaurantAjaxController  {
         } else {
             mealService.update(meals,restaurantId);
         }
+    }
+
+    @GetMapping("/ajax/admin/restaurants/{id}/meals")
+    public List<Meals> getMeals(@PathVariable("id") int restaurantId) {
+        log.info("get meal by restaurant id {}", restaurantId);
+        List<Meals> meals = mealService.getAllByRestaurantId(restaurantId);
+      //  ModelAndView model = new ModelAndView();
+      //  model.addObject("meals", meals );
+       // return new ModelAndView("restaurants","meals",meals);
+        return meals;
     }
 
 }

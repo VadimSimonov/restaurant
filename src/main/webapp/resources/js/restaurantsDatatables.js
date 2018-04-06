@@ -59,6 +59,41 @@ function addMeals(id) {
     });
 }
 
+function listMeals(id) {
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + id
+    }).done(function (data) {
+        var trHTML = '';
+        $.each(data.meals, function (i, item) {
+            trHTML += '<tr><td>' + data.meals[i].meal + '</td><td>' + data.meals[i].price + '</td></tr>';
+        });
+        $('#meals').append(trHTML);
+
+
+       //   $('#rest_id').val(data.id);
+     //   var meal=data.meals;
+     //   var meal=data.meals;
+     //   var m=JSON.stringify(meal);
+    //    $('#meal').val(JSON.stringify(meal));
+       // $('#meals').val(m);
+     //   $('#meals').val(data);
+
+        $('#listMeals').modal();
+    });
+}
+
+
+/*
+$.get("list.html", { pageNumber: pn }, function(records) {
+        $container = $("#container");
+        $container.empty();
+        $.each(records, function(index, value) {
+            $container.append(value);
+        })
+    });
+ */
+
 function saveMeals() {
     form = $("#detailsFormMeals");
     id=$('#restaurant_id').val();

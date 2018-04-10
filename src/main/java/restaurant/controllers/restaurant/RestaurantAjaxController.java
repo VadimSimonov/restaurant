@@ -70,11 +70,13 @@ public class RestaurantAjaxController  {
     @GetMapping("/ajax/admin/restaurants/{id}/meals")
     public List<Meals> getMeals(@PathVariable("id") int restaurantId) {
         log.info("get meal by restaurant id {}", restaurantId);
-        List<Meals> meals = mealService.getAllByRestaurantId(restaurantId);
-      //  ModelAndView model = new ModelAndView();
-      //  model.addObject("meals", meals );
-       // return new ModelAndView("restaurants","meals",meals);
-        return meals;
+        return mealService.getAllByRestaurantId(restaurantId);
+    }
+
+    @DeleteMapping("/ajax/admin/restaurants/meals/{id}")
+    public void deleteMeal(@PathVariable("id") int meal_id) {
+        log.info("delete {}", meal_id);
+        mealService.delete(meal_id);
     }
 
 }

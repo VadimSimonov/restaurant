@@ -14,10 +14,6 @@ $(function () {
                 "data": "meals"
             },
             {
-                "defaultContent": "Add",
-                "orderable": false
-            },
-            {
                 "defaultContent": "Edit",
                 "orderable": false
             },
@@ -37,7 +33,6 @@ $(function () {
 });
 
 function restaurantsEditRow(id) {
-    // $("#modalTitle").html(i18n["editTitle"]);
     $.ajax({
         type: "GET",
         url: ajaxUrl + id
@@ -47,14 +42,23 @@ function restaurantsEditRow(id) {
         $('#editRow').modal();
     });
 }
+function addMeals() {
+    $("#detailsFormMeals").find(":input").val("");
+    $('#listMeals').modal("hide");
+    $("#editMeals").modal();
+}
 
-function addMeals(id) {
+function editMeals() {
+    id=$('#rest_id').val();
     $.ajax({
         type: "GET",
         url: ajaxUrl + id
     }).done(function (data) {
         $('#restaurant_id').val(data.id);
-    //    $('#name').val(data.name);
+        $('#meal_id').val(data.meals[0].id);
+        $('#meal_name').val(data.meals[0].meal);
+        $('#meal_price').val(data.meals[0].price);
+        $('#listMeals').modal("hide");
         $('#editMeals').modal();
     });
 }
@@ -65,38 +69,30 @@ function listMeals(id) {
         url: ajaxUrl + id
     }).done(function (data) {
         var trHTML = '';
+        clearTable("#listFormMeals");
+        $('#rest_id').val(data.id);
         $.each(data.meals, function (i, item) {
-            trHTML += '<tr><td>' + data.meals[i].meal + '</td><td>' + data.meals[i].price + '</td></tr>';
+            trHTML += '<tr><td>' + data.meals[i].meal + '</td>' +
+                '<td>' + data.meals[i].price + '</td>' +
+                '<td>' + '<a onclick=editMeals()><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>' + '</td>' +
+                '<td>' + '<a onclick=deleteMeal('+data.meals[i].id+')><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + '</td>' +
+                '</tr>';
         });
-        $('#meals').append(trHTML);
-
-
-       //   $('#rest_id').val(data.id);
-     //   var meal=data.meals;
-     //   var meal=data.meals;
-     //   var m=JSON.stringify(meal);
-    //    $('#meal').val(JSON.stringify(meal));
-       // $('#meals').val(m);
-     //   $('#meals').val(data);
-
+        $('#listFormMeals').append(trHTML);
         $('#listMeals').modal();
     });
 }
 
 
-/*
-$.get("list.html", { pageNumber: pn }, function(records) {
-        $container = $("#container");
-        $container.empty();
-        $.each(records, function(index, value) {
-            $container.append(value);
-        })
-    });
- */
+function clearTable(string) {
+    $(string).find("td").empty();
+    $("td:empty").remove();
+    $("tr:empty").remove();
+}
 
 function saveMeals() {
     form = $("#detailsFormMeals");
-    id=$('#restaurant_id').val();
+    id=$('#rest_id').val();
     $.ajax({
         type: "POST",
         url: ajaxUrl + id + "/meals",
@@ -104,12 +100,11 @@ function saveMeals() {
             id : $('#meal_id').val(),
             meal : $('#meal_name').val(),
             price : $('#meal_price').val()
-          //  restaurants: $('#restaurant_id').val()
         },
         success: function () {
             $("#editMeals").modal("hide");
-            updateTable();
             successNoty("Saved");
+            listMeals(id);
         }
     });
 }
@@ -127,6 +122,18 @@ function saveRestaurant() {
             $("#editRow").modal("hide");
             updateTable();
             successNoty("Saved");
+        }
+    });
+}
+
+function deleteMeal(id) {
+   // rest=$('#rest_id').val();
+    $.ajax({
+        type: "DELETE",
+        url: ajaxUrl +"meals/"+ id,
+        success: function () {
+            successNoty("Deleted");
+            listMeals($('#rest_id').val());
         }
     });
 }

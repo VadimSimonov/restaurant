@@ -22,8 +22,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void delete(int id, int restaurantId) {
-        repository.delete(id,restaurantId);
+    public void delete(int id) {
+        repository.delete(id);
     }
 
     @Override

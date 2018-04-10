@@ -8,7 +8,7 @@ import java.util.List;
 public interface MealRepository {
     Meals save(Meals meals,int restaurantId);
 
-    boolean delete(int id,int restaurantId);
+    boolean delete(int id);
 
     Meals get(int id,int restaurantId);
 

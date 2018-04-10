@@ -22,7 +22,6 @@
             <thead>
             <tr>
                 <th><spring:message code="restaurants.name"/></th>
-                <th><spring:message code="restaurants.meals.size"/></th>
                 <th><spring:message code="restaurants.meals.list"/></th>
                 <th><spring:message code="edit"/></th>
                 <th><spring:message code="delete"/></th>
@@ -33,7 +32,6 @@
                 <tr>
                     <td><c:out value="${restaurants.name}"/></td>
                     <td><a onclick="listMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
-                    <td><a onclick="addMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
                     <td><a onclick="restaurantsEditRow(${restaurants.id})"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
                     <td><a class="delete" id="${restaurants.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -128,28 +126,20 @@
                     <div class="container">
                         <h3><spring:message code="meal.title"/></h3>
                         <br/>
-                        <a class="btn btn-primary" onclick="add()">
+                        <input type="hidden" id="rest_id" name="rest_id">
+                        <a class="btn btn-primary" onclick="addMeals()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <spring:message code="common.add"/>
                         </a>
                         <table class="table table-striped display" id="listFormMeals">
-                            <input type="hidden" id="rest_id" name="rest_id">
                             <thead>
                             <tr>
                                 <th><spring:message code="meal.name"/></th>
+                                <th><spring:message code="price"/></th>
                                 <th><spring:message code="edit"/></th>
                                 <th><spring:message code="delete"/></th>
                             </tr>
                             </thead>
-
-                            <table id="meals" border='1'>
-                                <tr>
-                                    <th>meal</th>
-                                    <th>price</th>
-                                    <th>edit</th>
-                                    <th>delete</th>
-                                </tr>
-                            </table>
                         </table>
                     </div>
                 </div>

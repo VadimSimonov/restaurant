@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
-        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id AND m.restaurants.id=:restaurantId"),
+        @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id"),
         @NamedQuery(name = Meals.ALL_SORTED, query = "SELECT m FROM Meals m ORDER BY m.meal"),
         @NamedQuery(name = Meals.ALL_SORTEDBYID, query = "SELECT m FROM Meals m WHERE m.restaurants.id=:restaurantId ORDER BY m.meal"),
 })

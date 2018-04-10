@@ -30,7 +30,7 @@ public class MealServiceImplTest implements AbstractServiceTest {
 
     @Test
     public void delete() throws Exception {
-        service.delete(Meals_ID2, Restaurant_ID2);
+        service.delete(Meals_ID2);
         assertMatch(service.getAll(),MEAL1);
     }
 

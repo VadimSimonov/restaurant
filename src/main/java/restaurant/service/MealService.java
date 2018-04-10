@@ -9,7 +9,7 @@ public interface MealService {
 
     Meals create(Meals meals, int restaurantId);
 
-    void delete(int id, int restaurantId);
+    void delete(int id);
 
     Meals get(int id, int restaurantId);
 

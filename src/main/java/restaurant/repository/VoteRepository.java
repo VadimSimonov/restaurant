@@ -13,4 +13,6 @@ public interface VoteRepository {
 
     List<Vote> getAll();
 
+    Vote ratingVote(Vote vote, int userId, int restaurantId);
+
 }

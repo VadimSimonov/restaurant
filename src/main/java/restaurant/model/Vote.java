@@ -20,7 +20,7 @@ public class Vote implements UtilId {
 
     public static final String DELETE = "Vote.delete";
     public static final String getAllSorted = "Vote.getAllSorted";
-
+    public static final String ratingVote = "Vote.ratingVote";
     @Id
     @Column(name="id", nullable = false, unique = true)
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
@@ -58,6 +58,11 @@ public class Vote implements UtilId {
         this.vote = vote;
     }
 
+    public Vote(Integer vote, @NotNull User user) {
+        this.vote = vote;
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -76,6 +81,7 @@ public class Vote implements UtilId {
     public void setVote(Integer voite) {
         this.vote = voite;
     }
+
     public Restaurants getRestaurants() {
         return restaurants;
     }

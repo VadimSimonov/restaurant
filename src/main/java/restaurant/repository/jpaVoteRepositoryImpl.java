@@ -2,9 +2,9 @@ package restaurant.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import restaurant.model.Restaurants;
 import restaurant.model.User;
 import restaurant.model.Vote;
-import restaurant.model.Restaurants;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +24,7 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
         if (!vote.isNew() && get(vote.getId(),restaurantId) == null) {
             return null;
         }
-        vote.setRestaurants(em.getReference(Restaurants.class, restaurantId));
+     //   vote.setRestaurants(em.getReference(Restaurants.class, restaurantId));
         vote.setUser(em.getReference(User.class,userId));
         if (vote.isNew()) {
             em.persist(vote);
@@ -43,9 +43,24 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
     }
 
     @Override
+    @Transactional
+    public Vote ratingVote(Vote vote, int userId, int restaurantId) {
+        if (!vote.isNew() && get(vote.getId(),restaurantId) == null) {
+            return null;
+        }
+        vote.setRestaurants(em.getReference(Restaurants.class, restaurantId));
+        vote.setUser(em.getReference(User.class,userId));
+        if (vote.isNew())
+            em.persist(vote);
+            return vote;
+    }
+
+    @Override
     public Vote get(int id,int restaurantId) {
         Vote vote = em.find(Vote.class, id);
-        return vote != null && vote.getRestaurants().getId() == restaurantId ? vote : null;
+        return vote != null ? vote : null;
+                //&& vote.getRestaurants().getId() == restaurantId
+
     }
 
     @Override

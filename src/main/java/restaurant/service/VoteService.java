@@ -14,5 +14,7 @@ public interface VoteService {
 
     void update(Vote menu, int restaurantId,int userId);
 
+    Vote ratingVote(Vote vote,int userId,int restaurantId);
+
     List<Vote> getAll();
 }

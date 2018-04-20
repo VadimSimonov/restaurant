@@ -37,6 +37,11 @@ public class VoteServiceImpl implements VoteService {
         repository.save(vote, restaurantId,userId);
     }
 
+    @Override
+    public Vote ratingVote(Vote vote, int userId, int restaurantId) {
+        return repository.ratingVote(vote,userId,restaurantId);
+    }
+
     public List<Vote> getAll() {
         return repository.getAll();
     }

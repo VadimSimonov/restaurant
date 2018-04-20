@@ -1,5 +1,6 @@
 package restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import restaurant.util.UtilId;
 
@@ -30,6 +31,13 @@ public class Restaurants implements UtilId {
     @Column(nullable = true)
     @JsonManagedReference
     private Set<Meals> meals;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants",cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<Vote> vote;
+
 
     public Restaurants() {
     }
@@ -69,6 +77,14 @@ public class Restaurants implements UtilId {
     }
     public void setMeals(Set<Meals> meals) {
         this.meals = meals;
+    }
+
+    public Set<Vote> getVote() {
+        return vote;
+    }
+
+    public void setVote(Set<Vote> vote) {
+        this.vote = vote;
     }
 
     @Override

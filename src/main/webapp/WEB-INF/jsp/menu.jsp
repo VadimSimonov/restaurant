@@ -14,35 +14,97 @@
     <div class="container">
         <h3><spring:message code="menu"/></h3>
         <br/>
-        <a class="btn btn-primary" onclick="add()">
+        <a class="btn btn-primary" onclick="addMenu()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             <spring:message code="common.add"/>
         </a>
-        <table class="table table-striped display" id="datatable">
+
+        <table class="table table-striped display" id="datatableMenu">
             <thead>
             <tr>
                 <th><spring:message code="menu.date"/></th>
                 <th><spring:message code="restaurants.name"/></th>
+                <th><spring:message code="meals.list"/></th>
                 <th><spring:message code="vote.rating"/></th>
-                <th></th>
-                <th></th>
+                <th><spring:message code="rating.plus"/></th>
+                <th><spring:message code="rating.minus"/></th>
             </tr>
             </thead>
+            <input type="hidden" id="user_id" name="user_id" value="100040">
             <c:forEach items="${menu}" var="menu">
                 <jsp:useBean id="menu" scope="page" type="restaurant.model.Menu"/>
                 <tr>
-                    <td><c:out value="${menu.date}"/></td>
                     <c:forEach items="${menu.restaurants}" var="restaurants">
-                        <tr><td><c:out value=""/></td>
-                            <td><c:out value="${restaurants.name}"/></td>
-                            <td><c:out value="${}"/></td>
-                        <td><a onclick="voitePlus(${restaurants.id})"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
-                        <td><a onclick="voiteMinus(${restaurants.id})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></td>
-                        </tr>
+                        <!--из за tr на странице ошибка  Cannot set property '_DT_CellIndex' of undefined-->
+                        <tr>
+                        <td><c:out value="${menu.date}"/></td>
+                        <td><c:out value="${restaurants.name}"/></td>
+                        <td><a onclick="listMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
+                            <c:set var="sumRating" value="${0}" />
+                            <c:forEach items="${restaurants.vote}" var="vote">
+                                <c:set var="sumRating" value="${sumRating + vote.vote}" />
+                            </c:forEach>
+                            <td><c:out value=""/>${sumRating}</td>
+                        <td><a onclick="voitePlus(${restaurants.id},1)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
+                        <td><a onclick="voiteMinus(${restaurants.id},-1)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></td>
                     </c:forEach>
-            </tr>
+                    </tr>
+
             </c:forEach>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="listMeals">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"><spring:message code="meals.list"/></h2>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron">
+                    <div class="container">
+                        <h3><spring:message code="meals.list"/></h3>
+                        <br/>
+                        <table class="table table-striped display" id="listFormMeals">
+                            <thead>
+                            <tr>
+                                <th><spring:message code="meal.name"/></th>
+                                <th><spring:message code="price"/></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="listRestaurants">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"><spring:message code="meals.list"/></h2>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron">
+                    <div class="container">
+                        <h3><spring:message code="restaurants.add.menu"/></h3>
+                        <br/>
+                        <table class="table table-striped display" id="listFormRestaurants">
+                            <thead>
+                            <tr>
+                                <th><spring:message code="restaurants.name"/></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

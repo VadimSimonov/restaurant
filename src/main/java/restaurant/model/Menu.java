@@ -1,5 +1,6 @@
 package restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
@@ -32,10 +33,16 @@ public class Menu implements UtilId {
     @Column(name = "date", columnDefinition = "timestamp default now()")
     private LocalDate date;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
+   // @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+  //  @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
    // @JoinColumn(name = "restauran_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+  //  @OnDelete(action = OnDeleteAction.CASCADE)
+   @OneToMany(fetch = FetchType.EAGER)
+   //@JoinColumn(name = "restauran_id", nullable = false)
+   @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
+ //  @OnDelete(action = OnDeleteAction.CASCADE)
+  // @NotNull
+   @JsonBackReference
     private Set<Restaurants> restaurants;
 
     public Menu() {

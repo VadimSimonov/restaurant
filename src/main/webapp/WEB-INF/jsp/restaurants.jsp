@@ -22,7 +22,7 @@
             <thead>
             <tr>
                 <th><spring:message code="restaurants.name"/></th>
-                <th><spring:message code="restaurants.meals.list"/></th>
+                <th><spring:message code="meals.list"/></th>
                 <th><spring:message code="edit"/></th>
                 <th><spring:message code="delete"/></th>
             </tr>
@@ -119,7 +119,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="restaurants.meals.list"/></h2>
+                <h2 class="modal-title"><spring:message code="meals.list"/></h2>
             </div>
             <div class="modal-body">
                 <div class="jumbotron">

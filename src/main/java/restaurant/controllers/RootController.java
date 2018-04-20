@@ -55,7 +55,6 @@ public class RootController {
     @GetMapping("/menu")
     public String voite(Model model) {
         model.addAttribute("menu", menuService.getAll());
-        model.addAttribute("vote", voteService.getAll());
         return "menu";
     }
 

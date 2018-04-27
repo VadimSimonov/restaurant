@@ -4,6 +4,10 @@ var id;
 
 $(function () {
     datatableApi = $("#datatableRestaurants").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
@@ -11,15 +15,23 @@ $(function () {
                 "data": "name"
             },
             {
-                "data": "meals"
+                "data": "meals",
+                "render": function (data, type, row) {
+                    if (type === "display") {
+                        return "<td><a onclick='listMeals(" + row.id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>"
+                    }
+                    return data;
+                }
             },
             {
-                "defaultContent": "Edit",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditBtn
             },
             {
-                "defaultContent": "Delete",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderDeleteBtn
             }
         ],
         "order": [
@@ -136,4 +148,11 @@ function deleteMeal(id) {
             listMeals($('#rest_id').val());
         }
     });
+}
+
+function renderEditBtn(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='restaurantsEditRow(" + row.id + ");'>" +
+            "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
+    }
 }

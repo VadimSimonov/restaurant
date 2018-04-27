@@ -27,6 +27,7 @@
                 <th><spring:message code="delete"/></th>
             </tr>
             </thead>
+            <!--
             <c:forEach items="${restaurants}" var="restaurants">
                 <jsp:useBean id="restaurants" scope="page" type="restaurant.model.Restaurants"/>
                 <tr>
@@ -36,6 +37,7 @@
                     <td><a class="delete" id="${restaurants.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
             </c:forEach>
+            -->
         </table>
     </div>
 </div>

@@ -47,8 +47,8 @@ public class RootController {
     }
 
     @GetMapping("/restaurants")
-    public String restaurants(Model model) {
-        model.addAttribute("restaurants", restaurantService.getAll());
+    public String restaurants() {
+      //  model.addAttribute("restaurants", restaurantService.getAll());
         return "restaurants";
     }
 

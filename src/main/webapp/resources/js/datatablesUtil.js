@@ -6,7 +6,7 @@ function makeEditable() {
     form =$('#detailsForm');
     formR =$('#detailsFormRestaurant');
     formM =$('#detailsFormMeals');
-    formRMenu =$('listFormRestaurants');
+    formRMenu =$('#listFormRestaurants');
 
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -43,6 +43,7 @@ function makeEditable() {
 
 function add() {
     $("#detailsForm").find(":input").val("");
+    $("#detailsFormRestaurant").find(":input").val("");
     $("#editRow").modal();
 }
 
@@ -113,7 +114,7 @@ function renderDeleteBtn(data, type, row) {
         return "<a onclick='deleteRow(" + row.id + ");'>" +
             "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
     }
-
+}
     var failedNote;
 
     function closeNoty() {
@@ -140,5 +141,4 @@ function renderDeleteBtn(data, type, row) {
             type: "error",
             layout: "bottomRight"
         }).show();
-    }
 }

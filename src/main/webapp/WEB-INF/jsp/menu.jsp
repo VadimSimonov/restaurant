@@ -30,7 +30,9 @@
                 <th><spring:message code="rating.minus"/></th>
             </tr>
             </thead>
+
             <input type="hidden" id="user_id" name="user_id" value="100040">
+            <!--
             <c:forEach items="${menu}" var="menu">
                 <jsp:useBean id="menu" scope="page" type="restaurant.model.Menu"/>
 
@@ -52,6 +54,7 @@
                     </c:forEach>
 
             </c:forEach>
+            -->
         </table>
     </div>
 </div>

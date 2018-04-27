@@ -54,7 +54,7 @@ public class RootController {
 
     @GetMapping("/menu")
     public String voite(Model model) {
-        model.addAttribute("menu", menuService.getAll());
+       // model.addAttribute("menu", menuService.getAll());
         return "menu";
     }
 

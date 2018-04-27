@@ -5,6 +5,10 @@ var id;
 
 $(function () {
     datatableApi = $("#datatableMenu").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
@@ -12,16 +16,38 @@ $(function () {
                 "data": "date"
             },
             {
-                "data": "restaurants"
-            },
-            {
-                "data": "meals",
-                render: function( data, type, row) {
-                    return row.restaurants.meals
+                "data": "restaurants",
+                "render": function (data, type, row) {
+                    var nameR="";
+                    if (type === "display") {
+                      //  return "<td><c:out value="+data.name+"/></td>"
+                          //return "<td><c:out value="+row.restaurants.name+"/></td>"
+                        var name = "";
+                        $.each(data, function (i, item) {
+                         //   name =data[i].restaurants.name ;
+                            name=item.name;
+                            return "<td><c:out value="+name+"/></td>"
+                        });
+                        return "<td><c:out value="+name+"/></td>"
+                    }
+                    return data;
                 }
             },
             {
-                "data": "vote"
+                "data": "meals",
+                "render": function( data, type, row) {
+                    return "<td><a onclick='listMeals(" + row.id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>"
+                }
+            },
+            {
+                "data": "vote",
+         //       "render": function( data, type, row) {
+         //           var sum = 0;
+         //           $.each(data, function (i, item) {
+         //               sum +=data.restaurants.vote.vote ;
+          //          });
+         //           return sum;
+           //     }
             },
             {
                 "defaultContent": "Plus",

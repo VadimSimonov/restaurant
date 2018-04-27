@@ -6,7 +6,7 @@ import restaurant.model.Menu;
 import java.util.List;
 
 public interface MenuRepository {
-    Menu save(Menu menu, int restaurantId);
+    Menu save(Menu menu,Integer[] selected);
 
     boolean delete(int id);
 

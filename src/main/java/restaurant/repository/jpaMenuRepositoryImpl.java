@@ -19,17 +19,11 @@ public class jpaMenuRepositoryImpl implements MenuRepository {
 
     @Override
     @Transactional
-    public Menu save(Menu menu, int restaurantId) {
-        if (!menu.isNew() && get(menu.getId(),restaurantId) == null) {
-            return null;
-        }
-        menu.setRestaurant(em.getReference(Restaurants.class, restaurantId));
-        if (menu.isNew()) {
-            em.persist(menu);
-            return menu;
-        } else {
-            return em.merge(menu);
-        }
+    public Menu save(Menu menu,Integer[] selected) {
+        em.createQuery("DELETE FROM Menu")
+        .executeUpdate();
+        em.persist(menu);
+        return menu;
     }
 
     @Override

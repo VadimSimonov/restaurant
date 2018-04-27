@@ -64,9 +64,11 @@ CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 CREATE TABLE vote (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id     INTEGER                 NOT NULL,
+  restauran_id INTEGER                NOT NULL,
   date_time         TIMESTAMP DEFAULT now() NOT NULL,
   vote             INTEGER                 NOT NULL,
-    FOREIGN KEY (user_id ) REFERENCES users (id)  ON DELETE CASCADE
+  FOREIGN KEY (user_id ) REFERENCES users (id)  ON DELETE CASCADE,
+  FOREIGN KEY (restauran_id ) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
 CREATE TABLE vote_restaurant

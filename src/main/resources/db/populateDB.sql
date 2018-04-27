@@ -31,10 +31,10 @@ INSERT INTO meals (meal,restauran_id,price) VALUES
   ('Zavtrak',100060,500),
   ('Obed',100061,700);
 
-INSERT INTO vote (id,user_id, date_time,vote) VALUES
-  (100050,100040, '2018-02-20 10:00:00',1),
-  (100052,100042, '2018-02-20 10:00:00',1),
-  (100051,100041, '2018-02-20 10:00:00',-1);
+INSERT INTO vote (id,user_id,restauran_id, date_time,vote) VALUES
+  (100050,100040,100060, '2018-02-20 10:00:00',1),
+  (100052,100042,100060, '2018-02-20 10:00:00',1),
+  (100051,100041,100061, '2018-02-20 10:00:00',-1);
 
 INSERT INTO vote_restaurant (vote_id,restaurant_id) VALUES
   (100050,100060),

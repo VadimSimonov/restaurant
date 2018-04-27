@@ -17,9 +17,9 @@ public class MenuServiceImpl implements MenuService {
     private MenuRepository repository;
 
 
-    public Menu create(Menu menu,int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
-        return repository.save(menu,restaurantId);
+    public Menu create(Menu menu,Integer[] selected) {
+        Assert.notNull(selected, "selected restaurants must not be empty");
+        return repository.save(menu,selected);
     }
 
 
@@ -33,8 +33,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-    public void update(Menu menu,int restaurantId) {
-        repository.save(menu, restaurantId);
+    public Menu update(Menu menu,Integer[] restaurantId) {
+        return repository.save(menu, restaurantId);
     }
 
 

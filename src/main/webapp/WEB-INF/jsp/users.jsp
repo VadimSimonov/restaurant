@@ -30,6 +30,7 @@
                 <th></th>
             </tr>
             </thead>
+            <!--
             <c:forEach items="${users}" var="user">
                 <jsp:useBean id="user" scope="page" type="restaurant.model.User"/>
                 <tr>
@@ -42,6 +43,7 @@
                     <td><a class="delete" id="${user.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
             </c:forEach>
+            -->
         </table>
     </div>
 </div>

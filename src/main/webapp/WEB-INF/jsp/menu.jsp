@@ -33,22 +33,23 @@
             <input type="hidden" id="user_id" name="user_id" value="100040">
             <c:forEach items="${menu}" var="menu">
                 <jsp:useBean id="menu" scope="page" type="restaurant.model.Menu"/>
-                <tr>
+
                     <c:forEach items="${menu.restaurants}" var="restaurants">
-                        <!--из за tr на странице ошибка  Cannot set property '_DT_CellIndex' of undefined-->
                         <tr>
-                        <td><c:out value="${menu.date}"/></td>
-                        <td><c:out value="${restaurants.name}"/></td>
-                        <td><a onclick="listMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
+                            <td><c:out value="${menu.date}"/></td>
+                            <td><c:out value="${restaurants.name}"/></td>
+                            <td><a onclick="listMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
+
                             <c:set var="sumRating" value="${0}" />
                             <c:forEach items="${restaurants.vote}" var="vote">
                                 <c:set var="sumRating" value="${sumRating + vote.vote}" />
                             </c:forEach>
-                            <td><c:out value=""/>${sumRating}</td>
-                        <td><a onclick="voitePlus(${restaurants.id},1)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
-                        <td><a onclick="voiteMinus(${restaurants.id},-1)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></td>
+
+                            <td><c:out value="${sumRating}"/></td>
+                            <td><a onclick="voitePlus(${restaurants.id},1)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
+                            <td><a onclick="voiteMinus(${restaurants.id},-1)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></td>
+                        </tr>
                     </c:forEach>
-                    </tr>
 
             </c:forEach>
         </table>
@@ -87,12 +88,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="meals.list"/></h2>
+                <h2 class="modal-title"><spring:message code="restaurants.add.menu"/></h2>
             </div>
             <div class="modal-body">
                 <div class="jumbotron">
                     <div class="container">
-                        <h3><spring:message code="restaurants.add.menu"/></h3>
                         <br/>
                         <table class="table table-striped display" id="listFormRestaurants">
                             <thead>
@@ -101,6 +101,10 @@
                             </tr>
                             </thead>
                         </table>
+                        <a class="btn btn-primary" onclick="addRestaurant()">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <spring:message code="common.add"/>
+                        </a>
                     </div>
                 </div>
             </div>

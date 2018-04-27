@@ -6,6 +6,7 @@ function makeEditable() {
     form =$('#detailsForm');
     formR =$('#detailsFormRestaurant');
     formM =$('#detailsFormMeals');
+    formRMenu =$('listFormRestaurants');
 
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -18,6 +19,11 @@ function makeEditable() {
 
     formM.submit(function () {
         saveMeals();
+        return false;
+    });
+
+    formRMenu.submit(function () {
+        addRestaurant();
         return false;
     });
 
@@ -95,30 +101,44 @@ function save() {
     });
 }
 
-var failedNote;
-
-function closeNoty() {
-    if (failedNote) {
-        failedNote.close();
-        failedNote = undefined;
+function renderEditBtn(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='editRow(" + row.id + ");'>" +
+            "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
     }
 }
 
-function successNoty(text) {
-    closeNoty();
-    new Noty({
-        text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + text,
-        type: 'success',
-        layout: "bottomRight",
-        timeout: 1000
-    }).show();
-}
+function renderDeleteBtn(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='deleteRow(" + row.id + ");'>" +
+            "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
+    }
 
-function failNoty(jqXHR) {
-    closeNoty();
-    failedNote = new Noty({
-        text: "<span class='glyphicon glyphicon-exclamation-sign'></span> &nbsp;Error status: " + jqXHR.status,
-        type: "error",
-        layout: "bottomRight"
-    }).show();
+    var failedNote;
+
+    function closeNoty() {
+        if (failedNote) {
+            failedNote.close();
+            failedNote = undefined;
+        }
+    }
+
+    function successNoty(text) {
+        closeNoty();
+        new Noty({
+            text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + text,
+            type: 'success',
+            layout: "bottomRight",
+            timeout: 1000
+        }).show();
+    }
+
+    function failNoty(jqXHR) {
+        closeNoty();
+        failedNote = new Noty({
+            text: "<span class='glyphicon glyphicon-exclamation-sign'></span> &nbsp;Error status: " + jqXHR.status,
+            type: "error",
+            layout: "bottomRight"
+        }).show();
+    }
 }

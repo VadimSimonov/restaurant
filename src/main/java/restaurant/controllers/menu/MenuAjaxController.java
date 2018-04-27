@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/admin/menu")
-public class ManuAjaxController {
+public class MenuAjaxController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -40,7 +40,14 @@ public class ManuAjaxController {
     @GetMapping()
     public List<Menu> getAll() {
         log.info("getAll {}");
-        return menuService.getAll();
+        List<Menu> all = menuService.getAll();
+        return all;
+    }
+    @PostMapping
+    public void addMenu(@RequestParam(value = "selected[]") Integer[] selected) {
+        log.info("addMenu {}", selected);
+        Menu menu=new Menu(LocalDate.now(),selected);
+        menuService.create(menu,selected);
     }
 
     @PostMapping(value = "/{id}")

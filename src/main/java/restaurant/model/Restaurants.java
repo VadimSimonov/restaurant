@@ -35,7 +35,7 @@ public class Restaurants implements UtilId {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants",cascade = CascadeType.ALL)
     @Column(nullable = true)
     @JsonManagedReference
-    @JsonIgnore
+   // @JsonIgnore
     private Set<Vote> vote;
 
 
@@ -94,14 +94,30 @@ public class Restaurants implements UtilId {
 
         Restaurants that = (Restaurants) o;
 
-        return getName().equals(that.getName());
+        return getId().equals(that.getId());
     }
 
     @Override
     public int hashCode() {
-        return getName().hashCode();
+        return getId().hashCode();
     }
 
+    /*
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Restaurants that = (Restaurants) o;
+
+            return getName().equals(that.getName());
+        }
+
+        @Override
+        public int hashCode() {
+            return getName().hashCode();
+        }
+        */
     @Override
     public String toString() {
         return "Restaurants{" +

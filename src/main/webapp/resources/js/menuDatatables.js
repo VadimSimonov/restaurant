@@ -12,10 +12,13 @@ $(function () {
                 "data": "date"
             },
             {
-                "data": "name"
+                "data": "restaurants"
             },
             {
-                "data": "meals"
+                "data": "meals",
+                render: function( data, type, row) {
+                    return row.restaurants.meals
+                }
             },
             {
                 "data": "vote"
@@ -104,12 +107,57 @@ function addMenu() {
             trHTML += '<tr><td>' + data[i].name + '</td>' +
                 '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
                 '</tr>';
-            checkHTML +='<div class="form-check">' +
-                '<label><input type="checkbox" name="check"> <span class="label-text">'+data[i].name+'</span></label>' +
+            checkHTML +='<div id="checkboxes" class="form-check">' +
+                '<label><input id="'+data[i].id+'" type="checkbox" name="check"> <span class="label-text">'+data[i].name+'</span></label>' +
                 '</div>'
         });
        // $('#listFormRestaurants').append(trHTML);
         $('#listFormRestaurants').append(checkHTML);
         $('#listRestaurants').modal();
     });
+}
+
+function addRestaurant() {
+    var selected = [];
+    $('#checkboxes input:checked').each(function() {
+        selected.push($(this).attr('id'));
+    });
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data : {
+            selected :selected
+        },
+        success: function () {
+            $("#listRestaurants").modal("hide");
+            updateTable();
+            successNoty("Voted");
+        }
+    });
+}
+
+function updateTable() {
+  /*
+    $.get(ajaxUrl, function (data) {
+        $.each(data, function (i, item) {
+            trHTML += '<tr><td>' + data[i].name + '</td>' +
+                '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
+                '</tr>';
+        });
+        $('#datatableMenu').append(checkHTML);
+        });
+*/
+    $.get(ajaxUrl, function (data) {
+        datatableApi.clear();
+        $.each(data, function (i, item) {
+            datatableApi.rows.add(item);
+        });
+        datatableApi.draw();
+    });
+  /*
+    $.get(ajaxUrl, function (data) {
+       // var a = data.restaurants;
+        datatableApi.clear().rows.add(data).draw();
+    });
+*/
 }

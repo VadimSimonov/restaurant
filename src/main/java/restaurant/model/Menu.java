@@ -1,16 +1,12 @@
 package restaurant.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.util.CollectionUtils;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
@@ -42,7 +38,7 @@ public class Menu implements UtilId {
    @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
  //  @OnDelete(action = OnDeleteAction.CASCADE)
   // @NotNull
-   @JsonBackReference
+  // @JsonBackReference
     private Set<Restaurants> restaurants;
 
     public Menu() {
@@ -76,6 +72,16 @@ public class Menu implements UtilId {
         this.date = date;
     }
 
+    public Menu(LocalDate date,Integer[] restaurants) {
+        this.date = date;
+        Set<Restaurants> list = Arrays.stream(restaurants).map(Restaurants::new).collect(Collectors.toSet());
+        this.restaurants = list;
+
+    }
+
+    public Menu(Integer[] restaurants) {
+        this.restaurants = Arrays.stream(restaurants).map(Restaurants::new).collect(Collectors.toSet());
+    }
     public Integer getId() {
         return id;
     }

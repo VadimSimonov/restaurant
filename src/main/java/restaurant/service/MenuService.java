@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface MenuService {
 
-    Menu create(Menu menu,int restaurantId);
-
     void delete(int id);
 
     Menu get(int id,int restaurantId);
 
-    void update(Menu menu,int restaurantId);
+    Menu update(Menu menu,Integer[] restaurantId);
 
     List<Menu> getAll();
+
+    Menu create(Menu menu,Integer[] selected);
 }

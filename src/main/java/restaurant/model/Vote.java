@@ -1,5 +1,6 @@
 package restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import restaurant.util.UtilId;
@@ -31,12 +32,22 @@ public class Vote implements UtilId {
     @Column(name = "vote", nullable = false, unique = true)
     private Integer vote;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+  /*
+    @ManyToOne(fetch = FetchType.LAZY)
   //  @JoinColumn(name = "restauran_id", nullable = false)
    // @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "vote_restaurant", joinColumns = @JoinColumn(name = "vote_id"), inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    //@JsonBackReference
+    private Restaurants restaurants;
+*/
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restauran_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    @JsonBackReference
     private Restaurants restaurants;
 
     @OneToOne(fetch = FetchType.EAGER)

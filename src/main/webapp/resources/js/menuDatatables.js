@@ -5,6 +5,50 @@ var id;
 
 $(function () {
     datatableApi = $("#datatableMenu").DataTable({
+            'ajax'       : {
+            "url"    : ajaxUrl,
+            "dataSrc": function (json) {
+            var date=json[0].date;
+            var return_data = new Array();
+            var restaurants=json[0].restaurants;
+            var len=restaurants.length;
+            for (var i = 0; i < len; i++) {
+                var rating=0;
+                voteLen=json[0].restaurants[i].vote.length;
+                for (var j = 0;j <voteLen ; j++) {
+                    var n=restaurants[i].vote[j].vote;
+                    rating+=n;
+                }
+
+                return_data.push({
+                    'date': date,
+                    'restaurants': restaurants[i].name,
+                    'meals':"<td><a onclick='listMeals(" + restaurants[i].id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>",
+                    'vote': rating
+                })
+            }
+        return return_data;
+    }
+},
+    "columns"    : [
+        {'data': 'date'},
+        {'data': 'restaurants'},
+        {'data': 'meals'},
+        {'data': 'vote'},
+        {
+        "orderable": false,
+        "defaultContent": "",
+        "render": renderEditBtn
+        },
+        {
+            "orderable": false,
+            "defaultContent": "",
+            "render": renderDeleteBtn
+        }
+    ]
+});
+
+        /*
         "ajax": {
             "url": ajaxUrl,
             "dataSrc": ""
@@ -18,36 +62,48 @@ $(function () {
             {
                 "data": "restaurants",
                 "render": function (data, type, row) {
+
                     var nameR="";
                     if (type === "display") {
+                  //      row.map(function (elt){
+                  //          return elt.restaurants}).join(',');
+
                       //  return "<td><c:out value="+data.name+"/></td>"
                           //return "<td><c:out value="+row.restaurants.name+"/></td>"
-                        var name = "";
-                        $.each(data, function (i, item) {
+                     //   var name = "";
+                        //$.each(data, function (i, item) {
                          //   name =data[i].restaurants.name ;
-                            name=item.name;
-                            return "<td><c:out value="+name+"/></td>"
-                        });
-                        return "<td><c:out value="+name+"/></td>"
+                            //name=item.name;
+                            //return "<td><c:out value="+name+"/></td>"
+                                //});
+                       // data.map(function (elt) {
+                        //    var size=elt.size;
+                        //    nameR=elt.name;
+                        //    console.log(JSON.stringify(data));
+                         //   return nameR;
+                      //  })
+                        //return "<td><c:out value="+name+"/></td>"
+
+                        nameR =data[0].name ;
                     }
-                    return data;
+                    return nameR;
                 }
             },
             {
                 "data": "meals",
                 "render": function( data, type, row) {
-                    return "<td><a onclick='listMeals(" + row.id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>"
+                    return "<td><a onclick='listMeals(" + row.restaurants[0].id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>"
                 }
             },
             {
                 "data": "vote",
-         //       "render": function( data, type, row) {
-         //           var sum = 0;
+                "render": function( data, type, row) {
+                    var sum = 0;
          //           $.each(data, function (i, item) {
          //               sum +=data.restaurants.vote.vote ;
-          //          });
-         //           return sum;
-           //     }
+                   // });
+                    return sum;
+                }
             },
             {
                 "defaultContent": "Plus",
@@ -65,6 +121,7 @@ $(function () {
             ]
         ]
     });
+    */
     makeEditable();
 });
 

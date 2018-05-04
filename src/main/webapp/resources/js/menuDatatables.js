@@ -8,120 +8,45 @@ $(function () {
             'ajax'       : {
             "url"    : ajaxUrl,
             "dataSrc": function (json) {
-            var date=json[0].date;
-            var return_data = new Array();
+            var return_data = [];
             var restaurants=json[0].restaurants;
-            var len=restaurants.length;
-            for (var i = 0; i < len; i++) {
+            for (var i = 0; i < restaurants.length; i++) {
                 var rating=0;
-                voteLen=json[0].restaurants[i].vote.length;
-                for (var j = 0;j <voteLen ; j++) {
-                    var n=restaurants[i].vote[j].vote;
-                    rating+=n;
+                for (var j = 0;j <json[0].restaurants[i].vote.length ; j++) {
+                    rating+=restaurants[i].vote[j].vote;
                 }
-
                 return_data.push({
-                    'date': date,
+                    'date': json[0].date,
+                    'restaurants_id': restaurants[i].id,
                     'restaurants': restaurants[i].name,
                     'meals':"<td><a onclick='listMeals(" + restaurants[i].id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>",
                     'vote': rating
                 })
             }
         return return_data;
-    }
+    },
+                "paging": false,
+                "info": true
 },
     "columns"    : [
         {'data': 'date'},
         {'data': 'restaurants'},
         {'data': 'meals'},
-        {'data': 'vote'},
+        {'data': 'vote'
+        },
+
         {
         "orderable": false,
         "defaultContent": "",
-        "render": renderEditBtn
+        "render": renderPlusBtn
         },
         {
             "orderable": false,
             "defaultContent": "",
-            "render": renderDeleteBtn
+            "render": renderMinusBtn
         }
     ]
 });
-
-        /*
-        "ajax": {
-            "url": ajaxUrl,
-            "dataSrc": ""
-        },
-        "paging": false,
-        "info": true,
-        "columns": [
-            {
-                "data": "date"
-            },
-            {
-                "data": "restaurants",
-                "render": function (data, type, row) {
-
-                    var nameR="";
-                    if (type === "display") {
-                  //      row.map(function (elt){
-                  //          return elt.restaurants}).join(',');
-
-                      //  return "<td><c:out value="+data.name+"/></td>"
-                          //return "<td><c:out value="+row.restaurants.name+"/></td>"
-                     //   var name = "";
-                        //$.each(data, function (i, item) {
-                         //   name =data[i].restaurants.name ;
-                            //name=item.name;
-                            //return "<td><c:out value="+name+"/></td>"
-                                //});
-                       // data.map(function (elt) {
-                        //    var size=elt.size;
-                        //    nameR=elt.name;
-                        //    console.log(JSON.stringify(data));
-                         //   return nameR;
-                      //  })
-                        //return "<td><c:out value="+name+"/></td>"
-
-                        nameR =data[0].name ;
-                    }
-                    return nameR;
-                }
-            },
-            {
-                "data": "meals",
-                "render": function( data, type, row) {
-                    return "<td><a onclick='listMeals(" + row.restaurants[0].id + ")'><span class='glyphicon glyphicon-list' aria-hidden='true'></span></a></td>"
-                }
-            },
-            {
-                "data": "vote",
-                "render": function( data, type, row) {
-                    var sum = 0;
-         //           $.each(data, function (i, item) {
-         //               sum +=data.restaurants.vote.vote ;
-                   // });
-                    return sum;
-                }
-            },
-            {
-                "defaultContent": "Plus",
-                "orderable": false
-            },
-            {
-                "defaultContent": "Minus",
-                "orderable": false
-            }
-        ],
-        "order": [
-            [
-                0,
-                "asc"
-            ]
-        ]
-    });
-    */
     makeEditable();
 });
 
@@ -176,6 +101,9 @@ function clearTable(string) {
     $(string).find("td").empty();
     $("td:empty").remove();
     $("tr:empty").remove();
+    $("#checkboxes :checkbox").remove();
+    $("span").remove();
+    $('#checkboxes').remove();
 }
 
 function addMenu() {
@@ -187,9 +115,9 @@ function addMenu() {
         var checkHTML = '';
         clearTable("#listFormRestaurants");
         $.each(data, function (i, item) {
-            trHTML += '<tr><td>' + data[i].name + '</td>' +
-                '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
-                '</tr>';
+        //    trHTML += '<tr><td>' + data[i].name + '</td>' +
+         //       '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
+          //      '</tr>';
             checkHTML +='<div id="checkboxes" class="form-check">' +
                 '<label><input id="'+data[i].id+'" type="checkbox" name="check"> <span class="label-text">'+data[i].name+'</span></label>' +
                 '</div>'
@@ -202,6 +130,7 @@ function addMenu() {
 
 function addRestaurant() {
     var selected = [];
+   // clearTable("#listFormRestaurants");
     $('#checkboxes input:checked').each(function() {
         selected.push($(this).attr('id'));
     });
@@ -219,28 +148,29 @@ function addRestaurant() {
     });
 }
 
+function renderPlusBtn(data, type, row) {
+    if (type === "display") {
+        return "<td><a onclick='voitePlus("+row.restaurants_id+","+1+")'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></a></td>"
+    }
+}
+
+function renderMinusBtn(data, type, row) {
+    if (type === "display") {
+        return "<td><a onclick='voiteMinus("+row.restaurants_id+","+-1+")'><span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>"
+    }
+}
+
 function updateTable() {
-  /*
     $.get(ajaxUrl, function (data) {
-        $.each(data, function (i, item) {
-            trHTML += '<tr><td>' + data[i].name + '</td>' +
-                '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
-                '</tr>';
-        });
-        $('#datatableMenu').append(checkHTML);
-        });
-*/
-    $.get(ajaxUrl, function (data) {
-        datatableApi.clear();
+        datatableApi.ajax.reload();
+    });
+   //     datatableApi.clear();
+/*
         $.each(data, function (i, item) {
             datatableApi.rows.add(item);
         });
         datatableApi.draw();
     });
-  /*
-    $.get(ajaxUrl, function (data) {
-       // var a = data.restaurants;
-        datatableApi.clear().rows.add(data).draw();
-    });
 */
+
 }

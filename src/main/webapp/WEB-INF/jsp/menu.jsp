@@ -14,10 +14,10 @@
     <div class="container">
         <h3><spring:message code="menu"/></h3>
         <br/>
-        <a class="btn btn-primary" onclick="addMenu()">
+        <p><a class="btn btn-primary" onclick="addMenu()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             <spring:message code="common.add"/>
-        </a>
+        </a></p>
 
         <table class="table table-striped display" id="datatableMenu">
             <thead>

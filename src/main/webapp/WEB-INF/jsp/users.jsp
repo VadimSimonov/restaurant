@@ -77,15 +77,13 @@
 
                     <div class="form-group">
                         <label for="role" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
-                        <!-- div class="col-xs-9"> -->
+                        <div class="col-xs-9">
                              <select id="role" >
                                   <option value="None">-- Select --</option>
-                                  <option value="ROLE_ADMIN">ADMIN</option>
-                                  <option value="ROLE_USER">USER</option>
+                                  <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                  <option value="ROLE_USER">ROLE_USER</option>
                               </select>
-                          <!--
                           </div>
-                          -->
                     </div>
 
                     <div class="form-group">

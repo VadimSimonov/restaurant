@@ -101,9 +101,9 @@ function clearTable(string) {
     $(string).find("td").empty();
     $("td:empty").remove();
     $("tr:empty").remove();
-    $("#checkboxes :checkbox").remove();
-    $("span").remove();
-    $('#checkboxes').remove();
+
+    $(string).find("div").empty();
+    $("div:empty").remove();
 }
 
 function addMenu() {
@@ -115,14 +115,10 @@ function addMenu() {
         var checkHTML = '';
         clearTable("#listFormRestaurants");
         $.each(data, function (i, item) {
-        //    trHTML += '<tr><td>' + data[i].name + '</td>' +
-         //       '<td>' + '<a onclick=plusRestaurant('+data[i].id+')><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>' + '</td>' +
-          //      '</tr>';
             checkHTML +='<div id="checkboxes" class="form-check">' +
                 '<label><input id="'+data[i].id+'" type="checkbox" name="check"> <span class="label-text">'+data[i].name+'</span></label>' +
                 '</div>'
         });
-       // $('#listFormRestaurants').append(trHTML);
         $('#listFormRestaurants').append(checkHTML);
         $('#listRestaurants').modal();
     });
@@ -130,7 +126,6 @@ function addMenu() {
 
 function addRestaurant() {
     var selected = [];
-   // clearTable("#listFormRestaurants");
     $('#checkboxes input:checked').each(function() {
         selected.push($(this).attr('id'));
     });
@@ -143,7 +138,7 @@ function addRestaurant() {
         success: function () {
             $("#listRestaurants").modal("hide");
             updateTable();
-            successNoty("Voted");
+            successNoty("Menu added");
         }
     });
 }
@@ -161,16 +156,5 @@ function renderMinusBtn(data, type, row) {
 }
 
 function updateTable() {
-    $.get(ajaxUrl, function (data) {
         datatableApi.ajax.reload();
-    });
-   //     datatableApi.clear();
-/*
-        $.each(data, function (i, item) {
-            datatableApi.rows.add(item);
-        });
-        datatableApi.draw();
-    });
-*/
-
 }

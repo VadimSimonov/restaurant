@@ -74,7 +74,7 @@ function editRow(id) {
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#email').val(data.email);
-            $('#role').val(data.role);
+            $('#role').val(data.role.role);
             $('#password').val(data.password);
         $('#editRow').modal();
     });

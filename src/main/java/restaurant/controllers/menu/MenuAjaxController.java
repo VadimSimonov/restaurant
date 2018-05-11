@@ -40,8 +40,7 @@ public class MenuAjaxController {
     @GetMapping()
     public List<Menu> getAll() {
         log.info("getAll {}");
-        List<Menu> all = menuService.getAll();
-        return all;
+        return menuService.getAll();
     }
     @PostMapping
     public void addMenu(@RequestParam(value = "selected[]") Integer[] selected) {

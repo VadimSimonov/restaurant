@@ -30,8 +30,7 @@ public class RestaurantAjaxController  {
     @GetMapping(value = "/ajax/admin/restaurants",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurants> getAll() {
         log.info("getAll {}");
-        List<Restaurants> all = restaurantService.getAll();
-        return all;
+        return restaurantService.getAll();
     }
 
     @GetMapping(value = "/ajax/admin/restaurants/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

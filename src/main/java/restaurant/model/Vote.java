@@ -13,6 +13,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
         @NamedQuery(name = Vote.getAllSorted, query = "SELECT v FROM Vote v ORDER BY v.date_time"),
+        @NamedQuery(name = Vote.getDate, query = "SELECT v FROM Vote v WHERE cast(date_time as date) = cast(:sdate as date) AND user_id=:user_id"),
 })
 @Entity
 @Table(name = "vote")
@@ -22,6 +23,8 @@ public class Vote implements UtilId {
     public static final String DELETE = "Vote.delete";
     public static final String getAllSorted = "Vote.getAllSorted";
     public static final String ratingVote = "Vote.ratingVote";
+    public static final String getDate = "Vote.getDate";
+
     @Id
     @Column(name="id", nullable = false, unique = true)
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)

@@ -2,11 +2,13 @@ package restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import restaurant.util.UtilId;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.util.*;
 
 
 @NamedQueries({
@@ -105,6 +107,7 @@ public class User implements UtilId {
     public Date getRegistered() {
         return registered;
     }
+
     public String getPassword() {
         return password;
     }
@@ -118,6 +121,7 @@ public class User implements UtilId {
 
         return role;
     }
+
     public void setRole(Role role) {
         this.role = role;
     }

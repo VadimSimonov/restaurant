@@ -29,7 +29,12 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:menu";
+    }
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/users")
@@ -56,11 +61,5 @@ public class RootController {
     public String voite(Model model) {
        // model.addAttribute("menu", menuService.getAll());
         return "menu";
-    }
-
-
-    private int getId(HttpServletRequest request) {
-        String paramId = Objects.requireNonNull(request.getParameter("id"));
-        return Integer.valueOf(paramId);
     }
 }

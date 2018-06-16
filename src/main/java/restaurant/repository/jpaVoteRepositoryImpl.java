@@ -35,7 +35,6 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
         if (!vote.isNew() && get(vote.getId(),restaurantId) == null) {
             return null;
         }
-     //   vote.setRestaurants(em.getReference(Restaurants.class, restaurantId));
         vote.setUser(em.getReference(User.class,userId));
         if (vote.isNew()) {
             em.persist(vote);
@@ -60,7 +59,7 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
             return null;
         }
         LocalTime time = vote.getDate_time().toLocalTime();
-        LocalTime after11 = LocalTime.of(21, 0, 0, 0);
+        LocalTime after11 = LocalTime.of(11, 0, 0, 0);
         LocalDate dateNow = vote.getDate_time().toLocalDate();
         List exist = em.createNamedQuery(Vote.getDate, Vote.class)
                 .setParameter("sdate", dateNow)
@@ -86,9 +85,7 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
 
     @Override
     public Vote get(int id,int restaurantId) {
-        Vote vote = em.find(Vote.class, id);
-        return vote != null ? vote : null;
-                //&& vote.getRestaurants().getId() == restaurantId
+        return em.find(Vote.class, id);
     }
 
     @Override

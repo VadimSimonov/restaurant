@@ -11,10 +11,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import restaurant.controllers.user.AbstractUserController;
 import restaurant.model.User;
 import restaurant.web.AuthorizedUser;
-import restaurant.service.MenuService;
-import restaurant.service.RestaurantService;
 import restaurant.service.UserService;
-import restaurant.service.VoteService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,15 +20,6 @@ import javax.validation.Valid;
 public class RootController extends AbstractUserController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RestaurantService restaurantService;
-
-    @Autowired
-    private VoteService voteService;
-
-    @Autowired
-    private MenuService menuService;
 
     @GetMapping("/")
     public String root() {
@@ -65,7 +53,6 @@ public class RootController extends AbstractUserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/restaurants")
     public String restaurants() {
-      //  model.addAttribute("restaurants", restaurantService.getAll());
         return "restaurants";
     }
 
@@ -77,7 +64,6 @@ public class RootController extends AbstractUserController {
 
     @GetMapping("/register")
     public String register(ModelMap model) {
-        model.addAttribute("user_id", AuthorizedUser.id());
         model.addAttribute("userTo", new User());
         model.addAttribute("register", true);
         return "profile";
@@ -92,6 +78,6 @@ public class RootController extends AbstractUserController {
             super.create(User.createNewFromTo(user));
             status.setComplete();
             return "redirect:login?message=app.registered&username=" + user.getEmail();
-        }
+            }
     }
 }

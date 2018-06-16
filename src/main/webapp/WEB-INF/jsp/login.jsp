@@ -47,12 +47,6 @@
             </button>
         </p>
         <br/>
-        <p>Стек технологий: <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
-    </div>
-</div>
-<div class="container">
-    <div class="lead">
-        &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava">Java Enterprise проект</a> с
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>

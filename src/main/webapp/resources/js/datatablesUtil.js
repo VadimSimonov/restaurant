@@ -87,6 +87,9 @@ function editRow(id) {
 
 
 function save() {
+    if (window.location.pathname==="/register"){
+        ajaxUrl="/register"
+    }
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -103,6 +106,8 @@ function save() {
             successNoty("Saved");
             if (pathname==="/profile"){
                 window.location.href='menu'
+            }if (pathname==="/register"){
+                window.location.href='login'
             }else
                 $("#editRow").modal("hide");
                 updateTable();

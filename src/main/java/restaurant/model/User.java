@@ -77,7 +77,7 @@ public class User implements UtilId {
         this(null, name, email,password, role);
     }
     public static User createNewFromTo(User newUser) {
-        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(),null);
+        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(),newUser.role);
     }
 
     public void setId(Integer id) {

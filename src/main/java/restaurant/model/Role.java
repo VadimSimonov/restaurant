@@ -16,7 +16,7 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
 
-    @Column(name = "role")
+    @Column(name = "role",nullable = false,columnDefinition = "ROLE_USER")
     private String role;
 
 

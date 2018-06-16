@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -14,10 +15,14 @@
     <div class="container">
         <h3><spring:message code="menu"/></h3>
         <br/>
-        <p><a class="btn btn-primary" onclick="addMenu()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <spring:message code="common.add"/>
-        </a></p>
+
+        <sec:authorize access="isAuthenticated()">
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <p><a class="btn btn-primary" onclick="addMenu()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <spring:message code="common.add"/></a></p>
+            </sec:authorize>
+        </sec:authorize>
 
         <table class="table table-striped display" id="datatableMenu">
             <thead>
@@ -31,30 +36,8 @@
             </tr>
             </thead>
 
-            <input type="hidden" id="user_id" name="user_id" value="100040">
-            <!--
-            <c:forEach items="${menu}" var="menu">
-                <jsp:useBean id="menu" scope="page" type="restaurant.model.Menu"/>
+            <input type="hidden" id="user_id" name="user_id" value="${user_id}">
 
-                    <c:forEach items="${menu.restaurants}" var="restaurants">
-                        <tr>
-                            <td><c:out value="${menu.date}"/></td>
-                            <td><c:out value="${restaurants.name}"/></td>
-                            <td><a onclick="listMeals(${restaurants.id})"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a></td>
-
-                            <c:set var="sumRating" value="${0}" />
-                            <c:forEach items="${restaurants.vote}" var="vote">
-                                <c:set var="sumRating" value="${sumRating + vote.vote}" />
-                            </c:forEach>
-
-                            <td><c:out value="${sumRating}"/></td>
-                            <td><a onclick="voitePlus(${restaurants.id},1)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
-                            <td><a onclick="voiteMinus(${restaurants.id},-1)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></td>
-                        </tr>
-                    </c:forEach>
-
-            </c:forEach>
-            -->
         </table>
     </div>
 </div>

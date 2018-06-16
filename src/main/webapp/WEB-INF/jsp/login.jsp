@@ -38,6 +38,7 @@
         </c:if>
         <br/>
         <p>
+            <a class="btn btn-lg btn-success" href="register"><spring:message code="app.register"/> &raquo;</a>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('user@yandex.ru', 'password')">
                 <spring:message code="app.enter"/> User
             </button>

@@ -62,7 +62,6 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
         LocalTime time = vote.getDate_time().toLocalTime();
         LocalTime after11 = LocalTime.of(21, 0, 0, 0);
         LocalDate dateNow = vote.getDate_time().toLocalDate();
-    //    LocalDate dateN=LocalDate.of(2018,02,20);
         List exist = em.createNamedQuery(Vote.getDate, Vote.class)
                 .setParameter("sdate", dateNow)
                 .setParameter("user_id", userId)

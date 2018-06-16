@@ -12,8 +12,8 @@ import restaurant.web.AuthorizedUser;
 
 import java.util.List;
 
-@Service//("userService")
-public class UserServiceImpl implements UserService{//, UserDetailsService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -49,14 +49,14 @@ public class UserServiceImpl implements UserService{//, UserDetailsService {
         return repository.getAll();
     }
 
-    /*
+
     @Override
-    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.getByEmail(email.toLowerCase());
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(user);
     }
-    */
+
 }

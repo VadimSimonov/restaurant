@@ -7,6 +7,7 @@ function makeEditable() {
     formR =$('#detailsFormRestaurant');
     formM =$('#detailsFormMeals');
     formRMenu =$('#listFormRestaurants');
+    formP =$('#EditFormUser');
 
     $(".delete").click(function () {
         deleteRow($(this).attr("id"));
@@ -32,6 +33,10 @@ function makeEditable() {
         return false;
     });
 
+    formP.submit(function () {
+        save();
+        return false;
+    });
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(jqXHR);
@@ -82,7 +87,6 @@ function editRow(id) {
 
 
 function save() {
-    form = $("#detailsForm");
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -95,9 +99,13 @@ function save() {
             password : $('#password').val()
         },
         success: function () {
-            $("#editRow").modal("hide");
-            updateTable();
+            var pathname = window.location.pathname;
             successNoty("Saved");
+            if (pathname==="/profile"){
+                window.location.href='menu'
+            }else
+                $("#editRow").modal("hide");
+                updateTable();
         }
     });
 }

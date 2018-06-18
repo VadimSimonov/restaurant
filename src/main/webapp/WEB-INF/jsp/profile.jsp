@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -12,8 +13,14 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h3><spring:message code="user.title"/></h3>
+        <h2>${userTo.name} <spring:message code="${register ? 'app.register' : 'app.profile'}"/></h2>
+        <form:form modelAttribute="userTo" id="EditFormUser"
+                   class="form-horizontal" method="post"
+                   action="${register ? 'register' : 'profile'}"
+                   charset="utf-8" accept-charset="UTF-8">
+        <!--
         <form class="form-horizontal" id="EditFormUser">
+            -->
             <input type="hidden" id="id" name="id" value="${id}">
 
             <div class="form-group">
@@ -58,7 +65,7 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form:form>
 
     </div>
 </div>

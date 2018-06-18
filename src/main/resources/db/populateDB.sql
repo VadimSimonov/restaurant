@@ -18,9 +18,9 @@ INSERT INTO user_roles (id, role) VALUES
   (100021, 'ROLE_ADMIN');
 
 INSERT INTO users (id,role_id,name, email, password) VALUES
-  (100040,100020,'User', 'user@yandex.ru', 'password'),
-  (100041,100021,'Admin', 'admin@gmail.com', 'admin'),
-  (100042,100020,'Vasya', 'vasya@yandex.ru', 'password');
+  (100040,100020,'User', 'user@yandex.ru', '{noop}password'),
+  (100041,100021,'Admin', 'admin@gmail.com', '{noop}admin'),
+  (100042,100020,'Vasya', 'vasya@yandex.ru', '{noop}password');
 
 INSERT INTO restaurants (id,name) VALUES
   (100060,'Restaurant1'),

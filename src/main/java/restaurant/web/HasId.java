@@ -1,6 +1,6 @@
-package restaurant.util;
+package restaurant.web;
 
-public interface UtilId {
+public interface HasId {
     Integer getId();
 
     void setId(Integer id);

@@ -15,7 +15,6 @@
     <div class="container">
         <h3><spring:message code="menu"/></h3>
         <br/>
-
         <sec:authorize access="isAuthenticated()">
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <p><a class="btn btn-primary" onclick="addMenu()">

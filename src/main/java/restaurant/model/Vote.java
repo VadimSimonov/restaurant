@@ -3,12 +3,10 @@ package restaurant.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
@@ -17,34 +15,17 @@ import java.util.Date;
 })
 @Entity
 @Table(name = "vote")
-public class Vote implements UtilId {
-    public static final int START_SEQ = 100000;
+public class Vote extends AbstractBaseEntity {
 
     public static final String DELETE = "Vote.delete";
     public static final String getAllSorted = "Vote.getAllSorted";
     public static final String ratingVote = "Vote.ratingVote";
     public static final String getDate = "Vote.getDate";
 
-    @Id
-    @Column(name="id", nullable = false, unique = true)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
     @Column(name = "date_time", columnDefinition = "timestamp default now()")
     private LocalDateTime date_time;
     @Column(name = "vote", nullable = false, unique = true)
     private Integer vote;
-
-  /*
-    @ManyToOne(fetch = FetchType.LAZY)
-  //  @JoinColumn(name = "restauran_id", nullable = false)
-   // @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name = "vote_restaurant", joinColumns = @JoinColumn(name = "vote_id"), inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    //@JsonBackReference
-    private Restaurants restaurants;
-*/
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restauran_id", nullable = false)

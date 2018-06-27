@@ -4,6 +4,10 @@ var datatableApi;
 var id;
 
 $(function () {
+    var referrer = document.referrer;
+    if (referrer.indexOf("profile") > -1) {
+        successNoty("Saved");
+    }
     datatableApi = $("#datatableMenu").DataTable({
             'ajax'       : {
             "url"    : ajaxUrl,

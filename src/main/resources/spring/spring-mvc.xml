@@ -13,6 +13,9 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+
     <mvc:annotation-driven/>
 <context:component-scan base-package="restaurant.controllers"/>
 

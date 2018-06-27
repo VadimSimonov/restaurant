@@ -77,7 +77,6 @@ function updateTable() {
 }
 
 function editRow(id) {
-   // $("#modalTitle").html(i18n["editTitle"]);
     $.ajax({
         type: "GET",
         url: ajaxUrl + id
@@ -114,7 +113,7 @@ function save() {
                 window.location.href='menu'
             }if (pathname==="/register"){
                 window.location.href='login'
-            }else
+            }
                 $("#editRow").modal("hide");
                 updateTable();
         }
@@ -155,8 +154,9 @@ function renderDeleteBtn(data, type, row) {
 
     function failNoty(jqXHR) {
         closeNoty();
+        var errorInfo = JSON.parse(jqXHR.responseText);
         failedNote = new Noty({
-            text: "<span class='glyphicon glyphicon-exclamation-sign'></span> &nbsp;Error status: " + jqXHR.status,
+            text: "<span class='glyphicon glyphicon-exclamation-sign'></span> &nbsp;" + "<br>" + errorInfo + "<br>",
             type: "error",
             layout: "bottomRight"
         }).show();

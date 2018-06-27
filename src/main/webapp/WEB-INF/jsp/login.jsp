@@ -6,6 +6,11 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
+<script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
+<script type="text/javascript" src="resources/js/userLogin.js" defer></script>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="fragments/headTag.jsp"/>
+<body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>

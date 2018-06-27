@@ -22,7 +22,7 @@ public class jpaUserRepositoryImpl implements UserRepository {
         if (user.isNew()) {
             Role rol = (Role) em.createNamedQuery(User.GET_ROLE)
                     .setParameter("user_role", user.getRole().getRole()).getSingleResult();
-            user.setRole(em.getReference(Role.class,rol.getId()));
+            user.setRole(em.getReference(Role.class, rol.getId()));
             em.persist(user);
             return user;
         } else {

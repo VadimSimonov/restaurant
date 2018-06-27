@@ -3,21 +3,23 @@ package restaurant.controllers.restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import restaurant.model.Meals;
 import restaurant.model.Restaurants;
 import restaurant.service.MealService;
 import restaurant.service.RestaurantService;
+import restaurant.util.UtilsBinding;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
-import javax.xml.soap.SOAPElement;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
-//@RequestMapping("/ajax/admin/restaurants")
 public class RestaurantAjaxController  {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -26,6 +28,9 @@ public class RestaurantAjaxController  {
 
     @Autowired
     private MealService mealService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping(value = "/ajax/admin/restaurants",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurants> getAll() {
@@ -45,31 +50,61 @@ public class RestaurantAjaxController  {
     }
 
     @PostMapping("/ajax/admin/restaurants")
-    public void createOrUpdate(@Valid Restaurants restaurants) {
+    public ResponseEntity<String> createOrUpdate(@Valid Restaurants restaurants, BindingResult result) {
         log.info("create {}", restaurants);
+        if (result.hasErrors()) {
+            return UtilsBinding.checkBinding(result);
+        }
         if (restaurants.isNew()) {
             restaurantService.create(new Restaurants(restaurants));
         } else {
             restaurantService.update(restaurants);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/ajax/admin/restaurants/{id}/meals")
-    public void createOrUpdateMeals(@RequestParam("id") String id,@RequestParam("meal") String meal,
+    // @Validated
+    public ResponseEntity<String> createOrUpdateMeals(@RequestParam("id") String id,
+                                                      @RequestParam("meal") String meal,
                                     @RequestParam("price") String price,@PathVariable("id") int restaurantId) {
-        Meals meals = new Meals(id.equals("")?null:Integer.valueOf(id),meal,Integer.valueOf(price));
+        Meals meals;
+        try {
+            meals = new Meals(id.equals("") ? null : Integer.valueOf(id), meal, Integer.valueOf(price));
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>(messageSource.getMessage("common.set.price",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (meal.equals("") || meal.length() < 2) {
+            return new ResponseEntity<>(messageSource.getMessage("common.set.meal",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (price.equals("") || price.length() < 2) {
+            return new ResponseEntity<>(messageSource.getMessage("common.set.price",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+
         log.info("create {}", meals);
         if (meals.isNew()) {
+
             mealService.create(meals,restaurantId);
         } else {
             mealService.update(meals,restaurantId);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/ajax/admin/restaurants/{id}/meals")
     public List<Meals> getMeals(@PathVariable("id") int restaurantId) {
         log.info("get meal by restaurant id {}", restaurantId);
         return mealService.getAllByRestaurantId(restaurantId);
+    }
+
+    @GetMapping("/ajax/admin/restaurants/{id}/meal{mealId}")
+    public Meals getMeal(@PathVariable("id") int restaurantId, @PathVariable("mealId") int mealId) {
+        log.info("get mealId=", mealId, "get restaurantId=", restaurantId);
+        return mealService.get(mealId, restaurantId);
     }
 
     @DeleteMapping("/ajax/admin/restaurants/meals/{id}")

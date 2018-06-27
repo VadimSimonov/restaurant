@@ -60,16 +60,16 @@ function addMeals() {
     $("#editMeals").modal();
 }
 
-function editMeals() {
+function editMeals(mealId) {
     id=$('#rest_id').val();
     $.ajax({
         type: "GET",
-        url: ajaxUrl + id
+        url: ajaxUrl + id + "/meal" + mealId
     }).done(function (data) {
-        $('#restaurant_id').val(data.id);
-        $('#meal_id').val(data.meals[0].id);
-        $('#meal_name').val(data.meals[0].meal);
-        $('#meal_price').val(data.meals[0].price);
+        //  $('#restaurant_id').val(data.id);
+        $('#meal_id').val(data.id);
+        $('#meal_name').val(data.meal);
+        $('#meal_price').val(data.price);
         $('#listMeals').modal("hide");
         $('#editMeals').modal();
     });
@@ -86,7 +86,7 @@ function listMeals(id) {
         $.each(data.meals, function (i, item) {
             trHTML += '<tr><td>' + data.meals[i].meal + '</td>' +
                 '<td>' + data.meals[i].price + '</td>' +
-                '<td>' + '<a onclick=editMeals()><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>' + '</td>' +
+                '<td>' + '<a onclick=editMeals(' + data.meals[i].id + ')><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>' + '</td>' +
                 '<td>' + '<a onclick=deleteMeal('+data.meals[i].id+')><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' + '</td>' +
                 '</tr>';
         });
@@ -103,7 +103,6 @@ function clearTable(string) {
 }
 
 function saveMeals() {
-    form = $("#detailsFormMeals");
     id=$('#rest_id').val();
     $.ajax({
         type: "POST",
@@ -122,7 +121,6 @@ function saveMeals() {
 }
 
 function saveRestaurant() {
-    form = $("#detailsFormRestaurant");
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -139,7 +137,6 @@ function saveRestaurant() {
 }
 
 function deleteMeal(id) {
-   // rest=$('#rest_id').val();
     $.ajax({
         type: "DELETE",
         url: ajaxUrl +"meals/"+ id,

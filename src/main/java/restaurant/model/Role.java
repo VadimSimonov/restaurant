@@ -1,20 +1,14 @@
 package restaurant.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_roles")
-public class Role implements Serializable {
-    public static final int START_SEQ = 100000;
-
-    @Id
-    @Column(name="id", nullable = false, unique = true)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
+public class Role extends AbstractBaseEntity implements Serializable {
 
     @Column(name = "role",nullable = false,columnDefinition = "ROLE_USER")
     private String role;

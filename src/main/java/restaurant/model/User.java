@@ -2,13 +2,13 @@ package restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import restaurant.util.UtilId;
 
 import javax.persistence.*;
-import java.util.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Date;
 
 
 @NamedQueries({
@@ -20,34 +20,38 @@ import java.util.*;
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User implements UtilId {
-    public static final int START_SEQ = 100000;
+public class User extends AbstractBaseEntity implements Serializable {
 
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String GET_ROLE = "User.getRole";
 
-    @Id
-    @Column(name="id", nullable = false, unique = true)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
     @Column(name = "name", nullable = false)
+    @NotBlank
+    //@Size(min = 2, max = 100, message = "length must between 2 and 100 characters")
     private String name;
+
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered=new Date();
+
     @Column(name = "password", nullable = false)
+    @Size(min = 5, max = 100)
+    @NotBlank
     private String password;
+
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
+
     @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotBlank
+    @Size(max = 100)
     private String email;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-   // @NotNull
     private Role role;
 
     public User() {

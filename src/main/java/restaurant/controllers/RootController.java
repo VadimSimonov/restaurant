@@ -1,25 +1,35 @@
 package restaurant.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import restaurant.controllers.user.AbstractUserController;
 import restaurant.model.User;
-import restaurant.web.AuthorizedUser;
 import restaurant.service.UserService;
+import restaurant.util.UtilsBinding;
+import restaurant.web.AuthorizedUser;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 public class RootController extends AbstractUserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping("/")
     public String root() {
@@ -70,14 +80,20 @@ public class RootController extends AbstractUserController {
     }
 
     @PostMapping("/register")
-    public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
+    public ResponseEntity<String> saveRegister(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("register", true);
-            return "profile";
-        } else {
+            return UtilsBinding.checkBinding(result);
+        }
+        try {
             super.create(User.createNewFromTo(user));
-            status.setComplete();
-            return "redirect:login?message=app.registered&username=" + user.getEmail();
-            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (DataIntegrityViolationException ex) {
+
+            return new ResponseEntity<>(messageSource.getMessage("common.duble.email",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (NoResultException e) {
+            return new ResponseEntity<>(messageSource.getMessage("common.choise.role",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }

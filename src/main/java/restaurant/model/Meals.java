@@ -3,10 +3,11 @@ package restaurant.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import restaurant.util.UtilId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @NamedQueries({
         @NamedQuery(name = Meals.DELETE, query = "DELETE FROM Meals m WHERE m.id=:id"),
@@ -15,35 +16,36 @@ import javax.validation.constraints.NotNull;
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "meals_unique_restaurant_idx")})
-public class Meals implements UtilId {
-    public static final int START_SEQ = 100000;
+public class Meals extends AbstractBaseEntity implements Serializable {
+    //  public static final int START_SEQ = 100000;
 
     public static final String DELETE = "Meals.delete";
     public static final String ALL_SORTED = "Meals.getAllSorted";
     public static final String ALL_SORTEDBYID = "Meals.getAllSortedById";
 
-    @Id
-    @Column(name="id", unique = true)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
     @Column(name = "meal", nullable = false)
+    //@NotBlank
+    @NotNull
+    @Size(min = 2, max = 32)
     private String meal;
 
     @Column(name = "price", nullable = false)
-    private int price;
+    //@NotBlank
+    @NotNull
+    // @Size(min = 2, max = 100)
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restauran_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
+    // @NotNull
     @JsonBackReference
     private Restaurants restaurants;
 
     public Meals() {
     }
 
-    public Meals(Integer id, String meal, Integer price) {
+    public Meals(Integer id, String meal, int price) {
         this.id = id;
         this.meal = meal;
         this.price = price;
@@ -78,12 +80,13 @@ public class Meals implements UtilId {
        // this.restaurants = setRestaurants(restaurants);
     }
     */
-
+/*
     public Meals(Integer id,String meal, int price) {
         this.id=id;
         this.meal = meal;
         this.price = price;
     }
+    */
 
     public Integer getId() {
         return id;
@@ -132,9 +135,5 @@ public class Meals implements UtilId {
                 ", meal='" + meal + '\'' +
                 ", price=" + price +
                 '}';
-    }
-
-    public boolean isNew() {
-        return this.id == null;
     }
 }

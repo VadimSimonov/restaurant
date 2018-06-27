@@ -3,22 +3,22 @@ package restaurant.controllers.menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import restaurant.model.Meals;
 import restaurant.model.Menu;
-import restaurant.model.Restaurants;
 import restaurant.model.Vote;
 import restaurant.service.MealService;
 import restaurant.service.MenuService;
-import restaurant.service.RestaurantService;
 import restaurant.service.VoteService;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/ajax/admin/menu")
@@ -35,7 +35,7 @@ public class MenuAjaxController {
     private VoteService voteService;
 
     @Autowired
-    private RestaurantService restaurantService;
+    private MessageSource messageSource;
 
     @GetMapping()
     public List<Menu> getAll() {
@@ -43,18 +43,31 @@ public class MenuAjaxController {
         return menuService.getAll();
     }
     @PostMapping
-    public void addMenu(@RequestParam(value = "selected[]") Integer[] selected) {
-        log.info("addMenu {}", selected);
-        Menu menu=new Menu(LocalDate.now(),selected);
-        menuService.create(menu,selected);
+    public ResponseEntity<String> addMenu(@RequestParam(value = "selected[]", required = false) Integer[] selected) {
+        log.info("addMenu {}", (Object[]) selected);
+        try {
+            Menu menu = new Menu(LocalDate.now(), selected);
+            menuService.create(menu, selected);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(messageSource.getMessage("common.set.menu",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}")
-    public void ratingPlusMinus(@RequestParam("userId") String userId,@RequestParam("pm") String pm,@PathVariable("id") int restaurantId) {
-        log.info("ratingPlusMinus {}", userId);
+    public ResponseEntity<String> ratingVote(@RequestParam("userId") String userId, @RequestParam("pm") String pm, @PathVariable("id") int restaurantId) {
+        log.info("ratingVote {}", userId);
         LocalDateTime localDateTime = LocalDateTime.now();
         Vote vote=new Vote(localDateTime,pm.equals("")?null:Integer.valueOf(pm));
-        voteService.ratingVote(vote,Integer.valueOf(userId),restaurantId);
+        LocalTime time = vote.getDate_time().toLocalTime();
+        LocalTime after11 = LocalTime.of(11, 0, 0, 0);
+        if (time.isAfter(after11)) {
+            return new ResponseEntity<>(messageSource.getMessage("common.time.vote",
+                    null, new Locale(Locale.getDefault().getLanguage())), HttpStatus.UNPROCESSABLE_ENTITY);
+        } else
+            voteService.ratingVote(vote,Integer.valueOf(userId),restaurantId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

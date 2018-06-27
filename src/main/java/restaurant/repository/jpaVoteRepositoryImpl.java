@@ -1,6 +1,7 @@
 package restaurant.repository;
 
-import org.hibernate.mapping.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import restaurant.model.Restaurants;
@@ -9,16 +10,6 @@ import restaurant.model.Vote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TemporalType;
-import java.sql.Timestamp;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -28,6 +19,8 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     @Transactional
@@ -58,27 +51,19 @@ public class jpaVoteRepositoryImpl implements VoteRepository {
         if (!vote.isNew() && get(vote.getId(),restaurantId) == null) {
             return null;
         }
-        LocalTime time = vote.getDate_time().toLocalTime();
-        LocalTime after11 = LocalTime.of(11, 0, 0, 0);
-        LocalDate dateNow = vote.getDate_time().toLocalDate();
         List exist = em.createNamedQuery(Vote.getDate, Vote.class)
-                .setParameter("sdate", dateNow)
+                .setParameter("sdate", vote.getDate_time().toLocalDate())
                 .setParameter("user_id", userId)
                 .getResultList();
-        if (time.isAfter(after11))
-        {
-            return null;
-        }else
             vote.setRestaurants(em.getReference(Restaurants.class, restaurantId));
             vote.setUser(em.getReference(User.class,userId));
-        if (time.isBefore(after11) && exist.size()!=0)
+        if (exist.size() != 0)
         {
             Vote existVote = (Vote) exist.get(0);
             vote.setId(existVote.getId());
             em.merge(vote);
                 return vote;
         }else
-        if (vote.isNew())
             em.persist(vote);
             return vote;
     }

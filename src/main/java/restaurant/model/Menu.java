@@ -1,8 +1,5 @@
 package restaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import restaurant.util.UtilId;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -14,31 +11,17 @@ import java.util.stream.Collectors;
 })
 @Entity
 @Table(name = "menu")
-public class Menu implements UtilId {
-    public static final int START_SEQ = 100000;
+public class Menu extends AbstractBaseEntity {
 
     public static final String DELETE = "Menu.delete";
     public static final String getAllSorted = "Menu.getAllSorted";
 
-    @Id
-    @Column(name="id", nullable = false, unique = true)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
-
     @Column(name = "date", columnDefinition = "timestamp default now()")
     private LocalDate date;
 
-   // @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-  //  @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
-   // @JoinColumn(name = "restauran_id", nullable = false)
-  //  @OnDelete(action = OnDeleteAction.CASCADE)
+
    @OneToMany(fetch = FetchType.EAGER)
-   //@JoinColumn(name = "restauran_id", nullable = false)
    @JoinTable(name = "menu_day", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "restauran_id"))
- //  @OnDelete(action = OnDeleteAction.CASCADE)
-  // @NotNull
-  // @JsonBackReference
     private Set<Restaurants> restaurants;
 
     public Menu() {
@@ -55,7 +38,7 @@ public class Menu implements UtilId {
     }
     public Menu(LocalDate date, Restaurants restaurants) {
         this.date = date;
-        this.restaurants = new HashSet<>(Arrays.asList(restaurants));
+        this.restaurants = new HashSet<>(Collections.singletonList(restaurants));
     }
     public Menu(LocalDate date, Collection<Restaurants> restaurants) {
         this.date = date;
@@ -74,8 +57,7 @@ public class Menu implements UtilId {
 
     public Menu(LocalDate date,Integer[] restaurants) {
         this.date = date;
-        Set<Restaurants> list = Arrays.stream(restaurants).map(Restaurants::new).collect(Collectors.toSet());
-        this.restaurants = list;
+        this.restaurants = Arrays.stream(restaurants).map(Restaurants::new).collect(Collectors.toSet());
 
     }
 
@@ -104,7 +86,7 @@ public class Menu implements UtilId {
         this.restaurants = restaurants;
     }
     public void setRestaurant(Restaurants restaurants) {
-        this.restaurants = new HashSet<>(Arrays.asList(restaurants));
+        this.restaurants = new HashSet<>(Collections.singletonList(restaurants));
     }
 
     @Override
@@ -114,8 +96,7 @@ public class Menu implements UtilId {
 
         Menu menu = (Menu) o;
 
-        if (getId() != null ? !getId().equals(menu.getId()) : menu.getId() != null) return false;
-        return getDate() != null ? getDate().equals(menu.getDate()) : menu.getDate() == null;
+        return (getId() != null ? getId().equals(menu.getId()) : menu.getId() == null) && (getDate() != null ? getDate().equals(menu.getDate()) : menu.getDate() == null);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package restaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import restaurant.util.UtilId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @NamedQueries({
@@ -13,18 +13,15 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "restaurants")
-public class Restaurants implements UtilId {
+public class Restaurants extends AbstractBaseEntity {
     public static final int START_SEQ = 100000;
 
     public static final String DELETE = "Restaurants.delete";
     public static final String ALL_SORTED = "Restaurants.getAllSorted";
 
-    @Id
-    @Column(name="id", nullable = false)
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    private Integer id;
     @Column(name = "name", nullable = false, unique = true)
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants", cascade = CascadeType.ALL)
@@ -35,7 +32,6 @@ public class Restaurants implements UtilId {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurants",cascade = CascadeType.ALL)
     @Column(nullable = true)
     @JsonManagedReference
-   // @JsonIgnore
     private Set<Vote> vote;
 
 

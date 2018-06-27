@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="restaurant" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -18,15 +20,13 @@
                    class="form-horizontal" method="post"
                    action="${register ? 'register' : 'profile'}"
                    charset="utf-8" accept-charset="UTF-8">
-        <!--
-        <form class="form-horizontal" id="EditFormUser">
-            -->
-            <input type="hidden" id="id" name="id" value="${id}">
+
+            <input type="hidden" id="id" value="${id}">
 
             <div class="form-group">
                 <label for="name" class="control-label col-xs-3"><spring:message code="user.name"/></label>
 
-                <div class="col-xs-9">
+                <div class="col-sm-3">
                     <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="user.name"/>">
                 </div>
             </div>
@@ -34,32 +34,49 @@
             <div class="form-group">
                 <label for="email" class="control-label col-xs-3"><spring:message code="user.email"/></label>
 
-                <div class="col-xs-9">
+                <div class="col-sm-3">
                     <input type="email" class="form-control" id="email"  placeholder="<spring:message code="user.email"/>">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="role" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
-                <div class="col-xs-9">
-                    <select id="role" >
-                        <option value="None">-- Select --</option>
-                        <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                        <option value="ROLE_USER">ROLE_USER</option>
-                    </select>
+            <sec:authorize access="isAnonymous()">
+                <div class="form-group">
+                    <label for="role" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
+                    <div class="col-sm-3">
+                        <select id="role">
+                            <option value="None">-- Select --</option>
+                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            <option value="ROLE_USER">ROLE_USER</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+            </sec:authorize>
+
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <div class="form-group">
+                    <label for="role" class="control-label col-xs-3"><spring:message code="user.roles"/></label>
+                    <div class="col-sm-3">
+                        <select id="role">
+                            <option value="None">-- Select --</option>
+                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            <option value="ROLE_USER">ROLE_USER</option>
+                        </select>
+                    </div>
+                </div>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_USER')">
+                <input type="hidden" id="role" value="ROLE_USER">
+            </sec:authorize>
 
             <div class="form-group">
                 <label for="password" class="control-label col-xs-3"><spring:message code="user.password"/></label>
 
-                <div class="col-xs-9">
+                <div class="col-sm-3">
                     <input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="user.password"/>">
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-xs-offset-3 col-xs-9">
+                <div class="col-xs-offset-3 col-sm-3">
                     <button type="submit" class="btn btn-primary">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </button>

@@ -45,13 +45,13 @@
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3"><spring:message code="restaurants.name"/></label>
 
-                        <div class="col-xs-9">
+                        <div class="col-xs-3">
                             <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="restaurants.name"/>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
+                        <div class="col-xs-offset-3 col-xs-3">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3"><spring:message code="meal.name"/></label>
 
-                        <div class="col-xs-9">
+                        <div class="col-xs-3">
                             <input type="text" class="form-control" id="meal_name" name="name" placeholder="<spring:message code="meal.name"/>">
                         </div>
                     </div>
@@ -86,13 +86,13 @@
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3"><spring:message code="price"/></label>
 
-                        <div class="col-xs-9">
+                        <div class="col-xs-3">
                             <input type="text" class="form-control" id="meal_price" name="price" placeholder="<spring:message code="price"/>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
+                        <div class="col-xs-offset-3 col-xs-3">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>

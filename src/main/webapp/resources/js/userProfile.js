@@ -1,7 +1,6 @@
 var ajaxUrl = "ajax/admin/users/";
 var datatableApi;
 
-// $(document).ready(function () {
 $(function () {
     var id = $('#id').val();
     var pathname = window.location.pathname;

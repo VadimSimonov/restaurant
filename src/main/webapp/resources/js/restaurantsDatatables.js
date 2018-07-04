@@ -45,6 +45,7 @@ $(function () {
 });
 
 function restaurantsEditRow(id) {
+    $("#modalTitleRestaurant").html(i18n["editTitle"]);
     $.ajax({
         type: "GET",
         url: ajaxUrl + id
@@ -55,12 +56,14 @@ function restaurantsEditRow(id) {
     });
 }
 function addMeals() {
+    $("#modalTitleMeals").html(i18n["addTitleMeals"]);
     $("#detailsFormMeals").find(":input").val("");
     $('#listMeals').modal("hide");
     $("#editMeals").modal();
 }
 
 function editMeals(mealId) {
+    $("#modalTitleMeals").html(i18n["editTitleMeals"]);
     id=$('#rest_id').val();
     $.ajax({
         type: "GET",
@@ -114,7 +117,7 @@ function saveMeals() {
         },
         success: function () {
             $("#editMeals").modal("hide");
-            successNoty("Saved");
+            successNoty("common.saved");
             listMeals(id);
         }
     });
@@ -131,7 +134,7 @@ function saveRestaurant() {
         success: function () {
             $("#editRow").modal("hide");
             updateTable();
-            successNoty("Saved");
+            successNoty("common.saved");
         }
     });
 }
@@ -141,7 +144,7 @@ function deleteMeal(id) {
         type: "DELETE",
         url: ajaxUrl +"meals/"+ id,
         success: function () {
-            successNoty("Deleted");
+            successNoty("common.deleted");
             listMeals($('#rest_id').val());
         }
     });

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import restaurant.model.User;
 import restaurant.repository.UserRepository;
@@ -19,7 +20,7 @@ import static restaurant.util.UserUtil.prepareToSave;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
    // @Autowired
-    private UserRepository repository;
+   private UserRepository repository;
 
     @Autowired
     public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
@@ -57,6 +58,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         repository.save(prepareToSave(user, passwordEncoder));
     }
 
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        repository.save(user);
+    }
 
     public List<User> getAll() {
         return repository.getAll();
@@ -68,6 +75,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = repository.getByEmail(email.toLowerCase());
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
+        } else if (!user.isEnabled()) {
+            throw new UsernameNotFoundException("User is disabled");
         }
         return new AuthorizedUser(user);
     }

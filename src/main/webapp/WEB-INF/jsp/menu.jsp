@@ -6,6 +6,7 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="fragments/i18n.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/menuDatatables.js" defer></script>

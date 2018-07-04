@@ -5,6 +5,7 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="fragments/i18n.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/restaurantsDatatables.js" defer></script>
@@ -36,7 +37,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="restaurants.add"/></h2>
+                <h2 class="modal-title" id="modalTitleRestaurant"></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsFormRestaurant">
@@ -68,7 +69,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="restaurants.meals.add"/></h2>
+                <h2 class="modal-title" id="modalTitleMeals"></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsFormMeals">
@@ -142,4 +143,10 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+<script type="text/javascript">
+    i18n["addTitle"] = '<spring:message code="restaurants.add"/>';
+    i18n["editTitle"] = '<spring:message code="restaurants.edit"/>';
+    i18n["addTitleMeals"] = '<spring:message code="restaurants.meals.add"/>';
+    i18n["editTitleMeals"] = '<spring:message code="restaurants.meals.edit"/>';
+</script>
 </html>

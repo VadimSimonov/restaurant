@@ -6,7 +6,7 @@ var id;
 $(function () {
     var referrer = document.referrer;
     if (referrer.indexOf("profile") > -1) {
-        successNoty("Saved");
+        successNoty("common.saved");
     }
     datatableApi = $("#datatableMenu").DataTable({
             'ajax'       : {
@@ -81,7 +81,7 @@ function voitePlus(id,pm) {
         },
         success: function () {
             updateTable();
-            successNoty("Voted");
+            successNoty("common.voted");
         }
     });
 }
@@ -96,7 +96,7 @@ function voiteMinus(id,pm) {
         },
         success: function () {
             updateTable();
-            successNoty("Voted");
+            successNoty("common.voted");
         }
     });
 }
@@ -142,7 +142,7 @@ function addRestaurant() {
         success: function () {
             $("#listRestaurants").modal("hide");
             updateTable();
-            successNoty("Menu added");
+            successNoty("common.saved");
         }
     });
 }

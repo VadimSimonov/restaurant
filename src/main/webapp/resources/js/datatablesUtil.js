@@ -55,6 +55,8 @@ function makeEditable() {
 function add() {
     $("#detailsForm").find(":input").val("");
     $("#detailsFormRestaurant").find(":input").val("");
+    $("#modalTitleRestaurant").html(i18n["addTitle"]);
+    $("#modalTitle").html(i18n["addTitle"]);
     $("#editRow").modal();
 }
 
@@ -65,7 +67,7 @@ function deleteRow(id) {
         type: "DELETE",
         success: function () {
             updateTable();
-            successNoty("Deleted");
+            successNoty("common.deleted");
         }
     });
 }
@@ -77,6 +79,7 @@ function updateTable() {
 }
 
 function editRow(id) {
+    $("#modalTitle").html(i18n["editTitle"]);
     $.ajax({
         type: "GET",
         url: ajaxUrl + id
@@ -108,7 +111,7 @@ function save() {
         },
         success: function () {
             var pathname = window.location.pathname;
-            successNoty("Saved");
+            successNoty("common.saved");
             if (pathname==="/profile"){
                 window.location.href='menu'
             }if (pathname==="/register"){
@@ -145,7 +148,7 @@ function renderDeleteBtn(data, type, row) {
     function successNoty(text) {
         closeNoty();
         new Noty({
-            text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + text,
+            text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + i18n[text],
             type: 'success',
             layout: "bottomRight",
             timeout: 1000

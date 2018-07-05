@@ -116,7 +116,6 @@
             <div class="modal-body">
                 <div class="jumbotron">
                     <div class="container">
-                        <h3><spring:message code="meal.title"/></h3>
                         <br/>
                         <input type="hidden" id="rest_id" name="rest_id">
                         <a class="btn btn-primary" onclick="addMeals()">

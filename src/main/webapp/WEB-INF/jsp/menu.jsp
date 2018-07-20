@@ -52,7 +52,6 @@
             <div class="modal-body">
                 <div class="jumbotron">
                     <div class="container">
-                        <h3><spring:message code="meals.list"/></h3>
                         <br/>
                         <table class="table table-striped display" id="listFormMeals">
                             <thead>

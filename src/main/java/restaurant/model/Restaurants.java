@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @Table(name = "restaurants")
 public class Restaurants extends AbstractBaseEntity {
-    public static final int START_SEQ = 100000;
 
     public static final String DELETE = "Restaurants.delete";
     public static final String ALL_SORTED = "Restaurants.getAllSorted";
@@ -54,7 +53,6 @@ public class Restaurants extends AbstractBaseEntity {
         this.id=id;
         this.name=name;
     }
-
 
     public Integer getId() {
         return id;
@@ -98,22 +96,6 @@ public class Restaurants extends AbstractBaseEntity {
         return getId().hashCode();
     }
 
-    /*
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Restaurants that = (Restaurants) o;
-
-            return getName().equals(that.getName());
-        }
-
-        @Override
-        public int hashCode() {
-            return getName().hashCode();
-        }
-        */
     @Override
     public String toString() {
         return "Restaurants{" +

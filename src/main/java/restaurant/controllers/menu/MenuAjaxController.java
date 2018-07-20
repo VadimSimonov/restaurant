@@ -76,10 +76,4 @@ public class MenuAjaxController {
         return mealService.getAllByRestaurantId(restaurantId);
     }
 
-    @DeleteMapping("/ajax/admin/restaurants/meals/{id}")
-    public void deleteMenu(@PathVariable("id") int meal_id) {
-        log.info("delete {}", meal_id);
-        mealService.delete(meal_id);
-    }
-
 }

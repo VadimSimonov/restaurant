@@ -17,7 +17,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "restauran_id", name = "meals_unique_restaurant_idx")})
 public class Meals extends AbstractBaseEntity implements Serializable {
-    //  public static final int START_SEQ = 100000;
 
     public static final String DELETE = "Meals.delete";
     public static final String ALL_SORTED = "Meals.getAllSorted";
@@ -71,22 +70,6 @@ public class Meals extends AbstractBaseEntity implements Serializable {
         this.price = price;
         this.restaurants = restaurants;
     }
-/*
-    public Meals(int id,String meal, Integer restaurants, int price) {
-        this.id=id;
-        this.meal = meal;
-        this.price = price;
-        this.restaurants=restaurants
-       // this.restaurants = setRestaurants(restaurants);
-    }
-    */
-/*
-    public Meals(Integer id,String meal, int price) {
-        this.id=id;
-        this.meal = meal;
-        this.price = price;
-    }
-    */
 
     public Integer getId() {
         return id;
@@ -109,24 +92,10 @@ public class Meals extends AbstractBaseEntity implements Serializable {
     public Restaurants getRestaurants() {
         return this.restaurants;
     }
-/*
-    public Restaurants getIdFromName(String name) {
-        return setRestaurants(Integer.valueOf(name));
-    }
-    */
+
     public void setRestaurants(Restaurants restaurants) {
-        /*
-        if (restaurants.getName()!=null && restaurants.getId()==null){
-            this.restaurants=getIdFromName(restaurants.getName());
-        }else
-            */
         this.restaurants = restaurants;
     }
-/*
-    public Restaurants setRestaurants(Integer restaurants) {
-        return new Restaurants(restaurants);
-    }
-    */
 
     @Override
     public String toString() {

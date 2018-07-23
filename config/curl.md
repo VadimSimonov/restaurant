@@ -33,7 +33,7 @@ curl -v --noproxy localhost, -s -X DELETE http://localhost:8080/rest/admin/resta
 
 #### get All Menu
 curl -v --noproxy localhost, -s http://localhost:8080/rest/admin/menu --user admin@gmail.com:admin
-#### add Menu
+#### new Menu
 curl -v --noproxy localhost, -s -X POST -d '["100060","100061"]' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/admin/menu --user admin@gmail.com:admin
 #### plus Vote
 curl -v --noproxy localhost, -s -X POST -d '{"vote":"1"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/admin/menu/100060/user/100040 --user admin@gmail.com:admin

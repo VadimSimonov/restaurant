@@ -95,6 +95,12 @@ public class RestaurantRestController {
         return mealService.getAllByRestaurantId(restaurantId);
     }
 
+    @GetMapping("/restuser/admin/restaurants/{id}/meals")
+    public List<Meals> getMealsFromRestaurantForUser(@PathVariable("id") int restaurantId) {
+        log.info("get meal by restaurant id {}", restaurantId);
+        return mealService.getAllByRestaurantId(restaurantId);
+    }
+
     @GetMapping("/rest/admin/restaurants/{id}/meal{mealId}")
     public Meals getMeal(@PathVariable("id") int restaurantId, @PathVariable("mealId") int mealId) {
         log.info("get mealId=", mealId, "get restaurantId=", restaurantId);

@@ -18,6 +18,8 @@
                     <button class="btn btn-primary" type="submit">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                     </button>
+                    <a href="<%=request.getContextPath()%>?languageVar=en">EN</a>
+                    <a href="<%=request.getContextPath()%>?languageVar=ru">RU</a>
                 </sec:authorize>
             </form:form>
         </div>
